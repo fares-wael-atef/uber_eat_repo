@@ -272,12 +272,25 @@ Feel free to ask me about delivery vs pickup payouts, specific branches, menu be
     });
   }
 
+  function updateFabVisibility() {
+    const fab = document.getElementById('chatbotFab');
+    if (!fab) return;
+    const isFsActive = document.getElementById('section-chatbot')?.classList.contains('active');
+    const isPanelOpen = document.getElementById('chatbotPanel')?.classList.contains('open');
+    if (isFsActive || isPanelOpen) {
+      fab.style.setProperty('display', 'none', 'important');
+    } else {
+      fab.style.setProperty('display', 'flex', 'important');
+    }
+  }
+
   function togglePanel() {
     isPanelOpen = !isPanelOpen;
     const panel = document.getElementById('chatbotPanel');
     const fab = document.getElementById('chatbotFab');
 
     if (panel) panel.classList.toggle('open', isPanelOpen);
+    updateFabVisibility();
 
     // Hide FAB when panel is open to eliminate overlap
     if (fab) {
@@ -288,6 +301,12 @@ Feel free to ask me about delivery vs pickup payouts, specific branches, menu be
   function closePanel() {
     isPanelOpen = false;
     const panel = document.getElementById('chatbotPanel');
+    if (panel) panel.classList.remove('open');
+    updateFabVisibility();
+  }
+  function dummyClosePanel() {
+    isPanelOpen = false;
+    const panel = document.getElementById('chatbotPanel');
     const fab = document.getElementById('chatbotFab');
 
     if (panel) panel.classList.remove('open');
@@ -295,6 +314,12 @@ Feel free to ask me about delivery vs pickup payouts, specific branches, menu be
   }
 
   function openFullscreen() {
+    closePanel();
+    if (window.showSection) window.showSection('chatbot');
+    updateFabVisibility();
+    renderAllMessages();
+  }
+  function dummyOpenFullscreen() {
     closePanel();
     if (window.showSection) window.showSection('chatbot');
     renderAllMessages();

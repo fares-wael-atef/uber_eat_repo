@@ -110,6 +110,21 @@
 }
 </style>
 
+
+<style>
+/* PERMANENT FAB HIDE WHEN IN FULLSCREEN OR SIDE PANEL OPEN */
+body:has(#section-chatbot.active) #chatbotFab,
+body:has(#chatbotPanel.open) #chatbotFab,
+.section#section-chatbot.active ~ #chatbotFab,
+#section-chatbot.active ~ .chatbot-fab,
+#chatbotPanel.open ~ #chatbotFab,
+.chatbot-fab.is-hidden {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+</style>
+
 </head>
 <body>
 
@@ -1042,10 +1057,10 @@
 
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-<script src="js/data.js?v=34.0"></script>
-<script src="js/charts.js?v=34.0"></script>
-<script src="js/calendar.js?v=34.0"></script>
-<script src="js/chatbot.js?v=34.0"></script>
-<script src="js/dashboard.js?v=34.0"></script>
+<script src="js/data.js?v=35.0"></script>
+<script src="js/charts.js?v=35.0"></script>
+<script src="js/calendar.js?v=35.0"></script>
+<script src="js/chatbot.js?v=35.0"></script>
+<script src="js/dashboard.js?v=35.0"></script>
 </body>
 </html>

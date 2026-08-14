@@ -155,6 +155,16 @@
       notifications: 'Dashboard Dataset Update Status'
     };
 
+        const fab = document.getElementById('chatbotFab');
+    if (fab) {
+      if (sectionId === 'chatbot') {
+        fab.style.setProperty('display', 'none', 'important');
+      } else {
+        const panel = document.getElementById('chatbotPanel');
+        const isPanelOpen = panel && panel.classList.contains('open');
+        fab.style.setProperty('display', isPanelOpen ? 'none' : 'flex', 'important');
+      }
+    }
     const bc = document.getElementById('currentSection');
     if (bc) bc.textContent = labels[sectionId] || sectionId;
 
