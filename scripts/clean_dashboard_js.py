@@ -1,4 +1,15 @@
-/**
+#!/usr/bin/env python3
+"""
+clean_dashboard_js.py — Fixes duplicate functions and syntax errors in js/dashboard.js
+"""
+
+def clean_dashboard():
+    dash_path = "/Users/mac/Downloads/AliBaba_Dashboard/js/dashboard.js"
+    with open(dash_path) as f:
+        code = f.read()
+
+    # Rebuild clean js/dashboard.js
+    clean_code = """/**
  * dashboard.js v8 — Main controller for Ali Baba's Shawarma Dashboard
  */
 
@@ -352,3 +363,10 @@
     }
   }
 })();
+"""
+    with open(dash_path, "w") as f:
+        f.write(clean_code)
+    print("[SUCCESS] Cleaned js/dashboard.js")
+
+if __name__ == "__main__":
+    clean_dashboard()
