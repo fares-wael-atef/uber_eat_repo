@@ -1,4 +1,16 @@
-/**
+#!/usr/bin/env python3
+"""
+build_chat_history_and_fullscreen_fetch.py —
+1. Implements persistent Chat History in localStorage ('alibaba_chat_history').
+2. Ensures Full-Screen AI Chat performs OpenRouter API fetch & UI updates seamlessly.
+3. Ensures Delete / Clear Conversation button resets localStorage and updates both panel & full-screen UI.
+"""
+
+import os, re
+
+def build_all():
+    bot_path = "/Users/mac/Downloads/AliBaba_Dashboard/js/chatbot.js"
+    bot_code = """/**
  * chatbot.js v10 — AI Assistant with Persistent Chat History, OpenRouter API, & Fullscreen Sync
  */
 
@@ -187,7 +199,7 @@ Feel free to ask me about delivery vs pickup payouts, specific branches, menu be
       html = welcomeHTML;
       conversationHistory.forEach(item => {
         const sender = item.role === 'user' ? 'user' : 'bot';
-        const formatted = item.content.replace(/\n/g, '<br>');
+        const formatted = item.content.replace(/\\n/g, '<br>');
         html += `<div class="chat-msg ${sender}"><div class="msg-bubble">${formatted}</div></div>`;
       });
     }
@@ -420,3 +432,10 @@ Feel free to ask me about delivery vs pickup payouts, specific branches, menu be
 
   return { init, togglePanel, closePanel, openFullscreen, closeFullscreen, clearConversation };
 })();
+"""
+    with open(bot_path, "w") as f:
+        f.write(bot_code)
+    print("[SUCCESS] Rebuilt js/chatbot.js with persistent Chat History & synchronized fetch rendering")
+
+if __name__ == "__main__":
+    build_all()
