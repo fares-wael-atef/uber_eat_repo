@@ -1,4 +1,96 @@
-/**
+#!/usr/bin/env python3
+"""
+insert_section_chatbot_and_fix_all.py —
+1. Inserts section-chatbot into dashboard.html right after section-notifications so Full-Screen AI Chat displays cleanly.
+2. Updates js/chatbot.js with robust element ID bindings, LocalStorage history, animated typing indicator, and clear conversation handlers.
+"""
+
+import os, re
+
+def insert_section():
+    dash_path = "/Users/mac/Downloads/AliBaba_Dashboard/dashboard.html"
+    with open(dash_path) as f:
+        html = f.read()
+
+    # Section chatbot markup to insert
+    section_chatbot_html = """
+    <!-- ===== 10. FULL-SCREEN AI CHATBOT WORKSPACE SECTION ===== -->
+    <section class="section" id="section-chatbot">
+      <div class="chatbot-fs-workspace" style="display:flex; height:calc(100vh - 130px); background:var(--surface); border:1px solid var(--border); border-radius:16px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,0.06);">
+        <!-- FS Sidebar -->
+        <aside class="chatbot-fs-sidebar" style="width:300px; background:var(--surface-2); border-right:1px solid var(--border); padding:20px; display:flex; flex-direction:column; gap:18px; flex-shrink:0;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div style="width:36px; height:36px; border-radius:10px; background:var(--blue-600); display:flex; align-items:center; justify-content:center; color:white; font-weight:800;">AI</div>
+            <div>
+              <div style="font-weight:800; font-size:1.05rem; color:var(--text-primary);">AI Assistant</div>
+              <div style="font-size:0.75rem; color:var(--text-muted);">GPT-4o mini &bull; 10-Month Dataset</div>
+            </div>
+          </div>
+
+          <button id="fsClearChatBtn" class="fs-new-chat-btn" style="width:100%; padding:12px; background:var(--blue-600); color:white; border:none; border-radius:10px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; font-size:0.9rem; transition:all 0.2s ease;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+            <span>Clear Conversation</span>
+          </button>
+
+          <div style="font-size:0.75rem; font-weight:800; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px;">Quick Operational Prompts</div>
+          <div class="fs-quick-prompts" style="display:flex; flex-direction:column; gap:8px; overflow-y:auto; flex:1;">
+            <button class="fs-prompt-chip" data-prompt="Give me net payout for each fulfillment method (delivery vs pickup)" style="padding:10px 12px; background:var(--surface); border:1px solid var(--border); border-radius:8px; text-align:left; font-size:0.82rem; font-weight:600; color:var(--text-primary); cursor:pointer;">Compare Delivery vs Pickup Payouts</button>
+            <button class="fs-prompt-chip" data-prompt="What are the top 10 best seller menu items and secondary basket add-ons?" style="padding:10px 12px; background:var(--surface); border:1px solid var(--border); border-radius:8px; text-align:left; font-size:0.82rem; font-weight:600; color:var(--text-primary); cursor:pointer;">Top 10 Menu Best Sellers</button>
+            <button class="fs-prompt-chip" data-prompt="Summarize financial sales, fees, and payout revenue for 10-month dataset" style="padding:10px 12px; background:var(--surface); border:1px solid var(--border); border-radius:8px; text-align:left; font-size:0.82rem; font-weight:600; color:var(--text-primary); cursor:pointer;">10-Month Financial Summary</button>
+            <button class="fs-prompt-chip" data-prompt="What are the main causes of offline downtime across branches?" style="padding:10px 12px; background:var(--surface); border:1px solid var(--border); border-radius:8px; text-align:left; font-size:0.82rem; font-weight:600; color:var(--text-primary); cursor:pointer;">Offline Downtime Causes</button>
+            <button class="fs-prompt-chip" data-prompt="Which branch has the lowest customer rating and highest inaccuracy errors?" style="padding:10px 12px; background:var(--surface); border:1px solid var(--border); border-radius:8px; text-align:left; font-size:0.82rem; font-weight:600; color:var(--text-primary); cursor:pointer;">Branch Issues & Ratings</button>
+          </div>
+        </aside>
+
+        <!-- FS Main Chat Area -->
+        <main class="chatbot-fs-chat-main" style="flex:1; display:flex; flex-direction:column; min-width:0; background:var(--surface);">
+          <header style="padding:14px 24px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; background:var(--surface-2);">
+            <div>
+              <h3 style="font-size:1.05rem; font-weight:800; color:var(--text-primary); margin:0;">AI Workspace Assistant</h3>
+              <p style="font-size:0.78rem; color:var(--text-muted); margin:0;">Full-Screen Mode &bull; OpenRouter GPT-4o mini &bull; 100% Data Access</p>
+            </div>
+            <button id="fsClearHeaderBtn" style="padding:6px 12px; background:none; border:1px solid var(--border); border-radius:8px; color:var(--text-muted); font-size:0.8rem; cursor:pointer; font-weight:600;">Clear</button>
+          </header>
+
+          <div class="chatbot-fs-messages" id="chatMessagesFs" style="flex:1; overflow-y:auto; padding:24px; display:flex; flex-direction:column; gap:16px;">
+            <div class="chat-msg bot">
+              <div class="msg-bubble">
+                Hello! I am your AI Operations Assistant for Ali Baba's Shawarma. I have 100% full access to all 9 Toronto stores, 10 reporting months, financial payouts, downtime causes, and menu best sellers. Ask me anything!
+              </div>
+            </div>
+          </div>
+
+          <div class="chatbot-fs-input-area" style="padding:16px 24px; border-top:1px solid var(--border); background:var(--surface-2);">
+            <div style="display:flex; gap:12px; align-items:center;">
+              <input type="text" id="chatInputFs" placeholder="Ask AI assistant about your full 10-month dataset... (e.g. compare delivery vs pickup net payout)" style="flex:1; padding:12px 18px; border-radius:10px; border:1px solid var(--border); background:var(--surface); color:var(--text-primary); font-size:0.9rem;" />
+              <button id="chatSendBtnFs" style="padding:12px 22px; border-radius:10px; background:var(--blue-600); color:white; border:none; font-weight:700; cursor:pointer; font-size:0.9rem;">Send</button>
+            </div>
+          </div>
+        </main>
+      </div>
+    </section>
+"""
+
+    # Check if section-notifications exists and section-chatbot is missing
+    if 'id="section-notifications"' in html and 'id="section-chatbot"' not in html:
+        html = html.replace('</section>\n\n    <!-- CHATBOT FLOATING PANEL -->', '</section>\n' + section_chatbot_html + '\n\n    <!-- CHATBOT FLOATING PANEL -->')
+        if 'id="section-chatbot"' not in html:
+            # Fallback: insert before </main>
+            html = html.replace('</main>', section_chatbot_html + '\n</main>')
+
+    # Update sidebar link click handler for nav-chatbot-fullscreen
+    html = html.replace(
+        '<button class="nav-item" id="nav-chatbot-fullscreen">',
+        '<button class="nav-item" id="nav-chatbot-fullscreen" onclick="return showSection(\'chatbot\', this);">'
+    )
+
+    with open(dash_path, "w") as f:
+        f.write(html)
+    print("[SUCCESS] Inserted section-chatbot into dashboard.html")
+
+    # 2. Update js/chatbot.js
+    bot_path = "/Users/mac/Downloads/AliBaba_Dashboard/js/chatbot.js"
+    bot_code = """/**
  * chatbot.js v11 — AI Assistant with Persistent History, synchronized Full-Screen Workspace, & Clear Conversation
  */
 
@@ -187,7 +279,7 @@ Feel free to ask me about delivery vs pickup payouts, specific branches, menu be
       html = welcomeHTML;
       conversationHistory.forEach(item => {
         const sender = item.role === 'user' ? 'user' : 'bot';
-        const formatted = item.content.replace(/\n/g, '<br>');
+        const formatted = item.content.replace(/\\n/g, '<br>');
         html += `<div class="chat-msg ${sender}"><div class="msg-bubble">${formatted}</div></div>`;
       });
     }
@@ -412,3 +504,10 @@ Feel free to ask me about delivery vs pickup payouts, specific branches, menu be
 
   return { init, togglePanel, closePanel, openFullscreen, closeFullscreen, clearConversation };
 })();
+"""
+    with open(bot_path, "w") as f:
+        f.write(bot_code)
+    print("[SUCCESS] Rebuilt js/chatbot.js with full-screen rendering and persistent history")
+
+if __name__ == "__main__":
+    insert_section()
