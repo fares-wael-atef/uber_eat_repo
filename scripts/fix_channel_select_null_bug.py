@@ -1,4 +1,17 @@
-/**
+#!/usr/bin/env python3
+"""
+fix_channel_select_null_bug.py —
+Fixes the null channelSelect check in updateDashboard and initFilters in js/dashboard.js.
+Ensures D.setFilters, initKPIs, updateDynamicMenuHTML, and updateDynamicInsights execute cleanly on load.
+"""
+
+def fix_bug():
+    dash_path = "/Users/mac/Downloads/AliBaba_Dashboard/js/dashboard.js"
+    with open(dash_path) as f:
+        code = f.read()
+
+    # Rebuild clean js/dashboard.js without any channelSelect references
+    clean_code = """/**
  * dashboard.js v9 — Main controller for Ali Baba's Shawarma Dashboard
  */
 
@@ -333,3 +346,10 @@
     }
   }
 })();
+"""
+    with open(dash_path, "w") as f:
+        f.write(clean_code)
+    print("[SUCCESS] Fixed null channelSelect bug in js/dashboard.js")
+
+if __name__ == "__main__":
+    fix_bug()
