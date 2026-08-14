@@ -1,4 +1,67 @@
-/**
+#!/usr/bin/env python3
+"""
+fix_all_chatbot_icons_and_typing.py —
+1. Binds all 3 floating panel header icons (Maximize/Expand, Clear/Delete, Close X) and sidebar link.
+2. Implements smooth animated 3-dot typing indicator ("AI is typing . . .") instead of static thinking text.
+3. Implements full-screen toggle for both overlay chatbotFullscreen AND section-chatbot.
+"""
+
+import os, re
+
+def fix_all():
+    dash_path = "/Users/mac/Downloads/AliBaba_Dashboard/dashboard.html"
+    with open(dash_path) as f:
+        html = f.read()
+
+    # 1. Update sidebar link for Full-Screen AI Chat
+    html = html.replace(
+        '<button class="nav-item" id="nav-chatbot-fullscreen">',
+        '<button class="nav-item" id="nav-chatbot-fullscreen" onclick="return showSection(\'chatbot\', this);">'
+    )
+
+    # 2. Add typing indicator CSS in head if missing
+    typing_css = """
+<style>
+@keyframes dotPulse {
+  0%, 80%, 100% { opacity: 0.25; transform: scale(0.8); }
+  40% { opacity: 1; transform: scale(1.25); }
+}
+.typing-bubble {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px !important;
+  background: var(--surface-2, #f1f5f9) !important;
+  border-radius: 12px;
+  font-weight: 600;
+  color: var(--text-primary, #1e293b);
+}
+.typing-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.typing-dots .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--blue-600, #2563eb);
+  animation: dotPulse 1.4s infinite ease-in-out both;
+}
+.typing-dots .dot:nth-child(1) { animation-delay: -0.32s; }
+.typing-dots .dot:nth-child(2) { animation-delay: -0.16s; }
+</style>
+"""
+    if 'dotPulse' not in html:
+        html = html.replace('</head>', typing_css + '\n</head>')
+
+    with open(dash_path, "w") as f:
+        f.write(html)
+    print("[SUCCESS] Updated dashboard.html with sidebar onclick & typing CSS")
+
+    # 3. Update js/chatbot.js with exact ID matching & animated typing indicator
+    bot_path = "/Users/mac/Downloads/AliBaba_Dashboard/js/chatbot.js"
+    bot_code = """/**
  * chatbot.js v9 — Complete AI Assistant with Header Icon Fixes & Animated Typing Indicator
  */
 
@@ -356,10 +419,17 @@ Feel free to ask me about delivery vs pickup payouts, specific branches, menu be
 
     const div = document.createElement('div');
     div.className = `chat-msg ${sender}`;
-    div.innerHTML = `<div class="msg-bubble">${text.replace(/\n/g, '<br>')}</div>`;
+    div.innerHTML = `<div class="msg-bubble">${text.replace(/\\n/g, '<br>')}</div>`;
     container.appendChild(div);
     container.scrollTop = container.scrollHeight;
   }
 
   return { init, togglePanel, closePanel, openFullscreen, closeFullscreen, clearConversation };
 })();
+"""
+    with open(bot_path, "w") as f:
+        f.write(bot_code)
+    print("[SUCCESS] Rebuilt js/chatbot.js with icon click handlers and animated 3-dot typing indicator")
+
+if __name__ == "__main__":
+    fix_all()
