@@ -1,4 +1,97 @@
-/**
+#!/usr/bin/env python3
+"""
+enhance_chatbot_ui_and_fix_overlap.py —
+1. Removes the trash icon from floating panel header.
+2. Fixes FAB button overlap by hiding #chatbotFab when #chatbotPanel is open.
+3. Upgrades chat message bubbles with professional avatars, gradients, typography, and crisp layouts.
+"""
+
+import os, re
+
+def apply_enhancements():
+    dash_path = "/Users/mac/Downloads/AliBaba_Dashboard/dashboard.html"
+    with open(dash_path) as f:
+        html = f.read()
+
+    # 1. Remove trash button from floating header if present
+    html = re.sub(r'<button class="chat-btn" id="chatbotClear".*?</button>\s*', '', html, flags=re.DOTALL)
+    html = re.sub(r'<button class="panel-icon-btn" id="chatbotClearBtn".*?</button>\s*', '', html, flags=re.DOTALL)
+
+    # 2. Add professional Chat Bubble CSS styling
+    chat_css = """
+<style>
+/* PROFESSIONAL CHATBOT UI STYLING */
+.chat-msg {
+  display: flex !important;
+  gap: 10px !important;
+  margin-bottom: 14px !important;
+  align-items: flex-start !important;
+}
+.chat-msg.user {
+  flex-direction: row-reverse !important;
+}
+.chat-msg .msg-avatar {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-weight: 800 !important;
+  font-size: 0.72rem !important;
+  flex-shrink: 0 !important;
+}
+.chat-msg.user .msg-avatar {
+  background: linear-gradient(135deg, #1e3a8a, #2563eb) !important;
+  color: white !important;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.3) !important;
+}
+.chat-msg.bot .msg-avatar {
+  background: linear-gradient(135deg, #059669, #10b981) !important;
+  color: white !important;
+  box-shadow: 0 2px 8px rgba(16,185,129,0.3) !important;
+}
+.chat-msg.user .msg-bubble {
+  background: linear-gradient(135deg, #1e40af, #2563eb) !important;
+  color: #ffffff !important;
+  border-radius: 16px 16px 4px 16px !important;
+  padding: 12px 16px !important;
+  font-size: 0.88rem !important;
+  line-height: 1.5 !important;
+  box-shadow: 0 4px 14px rgba(37,99,235,0.2) !important;
+  max-width: 82% !important;
+  word-break: break-word !important;
+}
+.chat-msg.bot .msg-bubble {
+  background: var(--surface, #ffffff) !important;
+  color: var(--text-primary, #0f172a) !important;
+  border: 1px solid var(--border, #e2e8f0) !important;
+  border-radius: 16px 16px 16px 4px !important;
+  padding: 14px 18px !important;
+  font-size: 0.88rem !important;
+  line-height: 1.6 !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.04) !important;
+  max-width: 88% !important;
+  word-break: break-word !important;
+}
+/* HIDE FAB BUTTON WHEN PANEL IS OPEN TO ELIMINATE OVERLAP */
+.chatbot-panel.open ~ .chatbot-fab,
+#chatbotPanel.open + #chatbotFab,
+.chatbot-fab.is-hidden {
+  display: none !important;
+}
+</style>
+"""
+    if 'PROFESSIONAL CHATBOT UI STYLING' not in html:
+        html = html.replace('</head>', chat_css + '\n</head>')
+
+    with open(dash_path, "w") as f:
+        f.write(html)
+    print("[SUCCESS] Updated dashboard.html with professional chat bubble styling and FAB overlap fix")
+
+    # 3. Rebuild js/chatbot.js with avatars, fab toggle, and clean design
+    bot_path = "/Users/mac/Downloads/AliBaba_Dashboard/js/chatbot.js"
+    bot_code = """/**
  * chatbot.js v12 — Professional AI Assistant UI with User/Bot Avatars & FAB Overlap Fix
  */
 
@@ -190,7 +283,7 @@ Feel free to ask me about delivery vs pickup payouts, specific branches, menu be
         const isUser = item.role === 'user';
         const avatar = isUser ? 'WA' : '🤖';
         const sender = isUser ? 'user' : 'bot';
-        const formatted = item.content.replace(/\n/g, '<br>');
+        const formatted = item.content.replace(/\\n/g, '<br>');
         html += `
           <div class="chat-msg ${sender}">
             <div class="msg-avatar">${avatar}</div>
@@ -435,3 +528,10 @@ Feel free to ask me about delivery vs pickup payouts, specific branches, menu be
 
   return { init, togglePanel, closePanel, openFullscreen, closeFullscreen, clearConversation };
 })();
+"""
+    with open(bot_path, "w") as f:
+        f.write(bot_code)
+    print("[SUCCESS] Rebuilt js/chatbot.js with avatars, FAB toggle, and clean bubble design")
+
+if __name__ == "__main__":
+    apply_enhancements()
