@@ -304,26 +304,34 @@
       });
     }
   }
-})();
 
   function updateDynamicMenuHTML() {
-    const items = D.top10MenuItems;
-    const totals = D.getFilteredTotals();
-    const container = document.getElementById('dynamicMenuTableBody');
-    if (!container || !items) return;
+    try {
+      const items = (typeof D.top10MenuItems === 'function') ? D.top10MenuItems() : (D.top10MenuItems || []);
+      const container = document.getElementById('dynamicMenuTableBody');
+      if (!container || !Array.isArray(items)) return;
 
-    let html = '';
-    items.forEach((item, idx) => {
-      html += `
-        <tr>
-          <td style="font-weight:700;">#${idx + 1}</td>
-          <td style="font-weight:700; color:var(--blue-600);">${item.name}</td>
-          <td>${item.orders.toLocaleString()} orders</td>
-          <td style="font-weight:700; color:var(--emerald-600);">${item.pct}%</td>
-          <td>CAD $${item.sales.toLocaleString()}</td>
-          <td style="color:#F59E0B; font-weight:700;">${item.rating.toFixed(2)} ★</td>
-        </tr>
-      `;
-    });
-    container.innerHTML = html;
+      let html = '';
+      items.forEach((item, idx) => {
+        const name = item.name || item.item || 'Item';
+        const ords = item.orders || 0;
+        const pct = item.pct || 0;
+        const sales = item.sales || 0;
+        const rating = item.rating || 4.5;
+        html += `
+          <tr>
+            <td style="font-weight:700;">#${idx + 1}</td>
+            <td style="font-weight:700; color:var(--blue-600);">${name}</td>
+            <td>${ords.toLocaleString()} orders</td>
+            <td style="font-weight:700; color:var(--emerald-600);">${pct}%</td>
+            <td>CAD $${sales.toLocaleString()}</td>
+            <td style="color:#F59E0B; font-weight:700;">${typeof rating === 'number' ? rating.toFixed(2) : rating} ★</td>
+          </tr>
+        `;
+      });
+      container.innerHTML = html;
+    } catch (e) {
+      console.warn("updateDynamicMenuHTML warning:", e);
+    }
   }
+})();
