@@ -175,6 +175,7 @@
     if (!window.ChartManager) return;
     switch (section) {
       case 'overview':  window.ChartManager.initOverview();  break;
+      case 'menu':      window.ChartManager.initMenu();      break;
       case 'orders':    window.ChartManager.initOrders();    break;
       case 'revenue':   window.ChartManager.initRevenue();   break;
       case 'downtime':  window.ChartManager.initDowntime();  break;
