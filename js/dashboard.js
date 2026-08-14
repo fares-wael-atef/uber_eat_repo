@@ -22,7 +22,9 @@
   });
 
   function checkAuth() {
-    sessionStorage.setItem('alibaba_authed', 'true');
+    if (!sessionStorage.getItem('alibaba_authed')) {
+      window.location.href = 'index.html';
+    }
   }
 
   function initTheme() {
@@ -296,8 +298,8 @@
     if (logoutBtn) {
       logoutBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        sessionStorage.setItem('alibaba_authed', 'true');
-        alert("Logged Out — Administrator Session Reset Successfully.");
+        sessionStorage.removeItem('alibaba_authed');
+        window.location.href = 'index.html';
       });
     }
   }

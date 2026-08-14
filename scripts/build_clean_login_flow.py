@@ -1,4 +1,17 @@
-<!DOCTYPE html>
+#!/usr/bin/env python3
+"""
+build_clean_login_flow.py —
+Configures 2-step Login & Dashboard workflow:
+1. index.html: Login page with demo credentials helper and 1-click Quick Login.
+2. dashboard.html: Analytics dashboard with authentication check & working Logout button redirecting to index.html.
+3. vercel.json: Clean static routing.
+"""
+
+import os, json
+
+def build_login_flow():
+    # 1. Update index.html with Login UI + Demo Quick Login button
+    index_html = """<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -88,3 +101,129 @@
   <script src="js/login.js"></script>
 </body>
 </html>
+"""
+    with open("/Users/mac/Downloads/AliBaba_Dashboard/index.html", "w") as f:
+        f.write(index_html)
+    print("[SUCCESS] Updated index.html with Login UI and Quick Sign In button")
+
+    # 2. Update js/login.js
+    login_js = """// Login Page Controller
+(function () {
+  const particlesEl = document.getElementById('particles');
+  if (particlesEl) {
+    for (let i = 0; i < 20; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = Math.random() * 60 + 10;
+      p.style.cssText = `
+        width:${size}px; height:${size}px;
+        left:${Math.random()*100}%;
+        animation-duration:${Math.random()*15+10}s;
+        animation-delay:${Math.random()*10}s;
+      `;
+      particlesEl.appendChild(p);
+    }
+  }
+
+  const pwInput = document.getElementById('password');
+  const toggleBtn = document.getElementById('togglePw');
+  const eyeShow = document.getElementById('eyeShow');
+  const eyeHide = document.getElementById('eyeHide');
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      const isPass = pwInput.type === 'password';
+      pwInput.type = isPass ? 'text' : 'password';
+      eyeShow.style.display = isPass ? 'none' : '';
+      eyeHide.style.display = isPass ? '' : 'none';
+    });
+  }
+
+  const form = document.getElementById('loginForm');
+  const loginBtn = document.getElementById('loginBtn');
+  const quickLoginBtn = document.getElementById('quickLoginBtn');
+  const btnLoader = document.getElementById('btnLoader');
+  const errorMsg = document.getElementById('errorMsg');
+
+  function executeSignIn() {
+    sessionStorage.setItem('alibaba_authed', 'true');
+    loginBtn.classList.add('loading');
+    if (btnLoader) btnLoader.classList.add('visible');
+    loginBtn.disabled = true;
+
+    setTimeout(() => {
+      const card = document.getElementById('loginCard');
+      if (card) card.style.animation = 'slideUp 0.4s cubic-bezier(0.4,0,1,1) reverse both';
+      setTimeout(() => { window.location.href = 'dashboard.html'; }, 350);
+    }, 600);
+  }
+
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      executeSignIn();
+    });
+  }
+
+  if (quickLoginBtn) {
+    quickLoginBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('username').value = 'wael atef';
+      document.getElementById('password').value = '0000';
+      executeSignIn();
+    });
+  }
+})();
+"""
+    with open("/Users/mac/Downloads/AliBaba_Dashboard/js/login.js", "w") as f:
+        f.write(login_js)
+    print("[SUCCESS] Updated js/login.js")
+
+    # 3. Update js/dashboard.js auth check and logout handler
+    dashboard_js_path = "/Users/mac/Downloads/AliBaba_Dashboard/js/dashboard.js"
+    with open(dashboard_js_path) as f:
+        dcode = f.read()
+
+    # Update checkAuth
+    dcode = dcode.replace(
+        "function checkAuth() {\n    sessionStorage.setItem('alibaba_authed', 'true');\n  }",
+        "function checkAuth() {\n    if (!sessionStorage.getItem('alibaba_authed')) {\n      window.location.href = 'index.html';\n    }\n  }"
+    )
+
+    # Update initLogout
+    old_logout = """  function initLogout() {
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        sessionStorage.setItem('alibaba_authed', 'true');
+        alert("Logged Out — Administrator Session Reset Successfully.");
+      });
+    }
+  }"""
+
+    new_logout = """  function initLogout() {
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        sessionStorage.removeItem('alibaba_authed');
+        window.location.href = 'index.html';
+      });
+    }
+  }"""
+
+    dcode = dcode.replace(old_logout, new_logout)
+
+    with open(dashboard_js_path, "w") as f:
+        f.write(dcode)
+    print("[SUCCESS] Updated js/dashboard.js checkAuth and initLogout")
+
+    # 4. Clean vercel.json
+    vercel_path = "/Users/mac/Downloads/AliBaba_Dashboard/vercel.json"
+    with open(vercel_path, "w") as f:
+        f.write('{\n  "cleanUrls": true\n}\n')
+    print("[SUCCESS] Updated vercel.json")
+
+if __name__ == "__main__":
+    build_login_flow()
