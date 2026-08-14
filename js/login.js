@@ -32,7 +32,6 @@
 
   const form = document.getElementById('loginForm');
   const loginBtn = document.getElementById('loginBtn');
-  const quickLoginBtn = document.getElementById('quickLoginBtn');
   const btnLoader = document.getElementById('btnLoader');
   const errorMsg = document.getElementById('errorMsg');
 
@@ -52,15 +51,6 @@
   if (form) {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      executeSignIn();
-    });
-  }
-
-  if (quickLoginBtn) {
-    quickLoginBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      document.getElementById('username').value = 'wael atef';
-      document.getElementById('password').value = '0000';
       executeSignIn();
     });
   }

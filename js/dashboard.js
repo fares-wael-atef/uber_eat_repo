@@ -136,6 +136,7 @@
     }
 
     initKPIs();
+    updateDynamicMenuHTML();
     updateDynamicInsights();
     window.ChartManager.disposeAll();
     initChartsForSection(currentSection);
@@ -304,3 +305,25 @@
     }
   }
 })();
+
+  function updateDynamicMenuHTML() {
+    const items = D.top10MenuItems;
+    const totals = D.getFilteredTotals();
+    const container = document.getElementById('dynamicMenuTableBody');
+    if (!container || !items) return;
+
+    let html = '';
+    items.forEach((item, idx) => {
+      html += `
+        <tr>
+          <td style="font-weight:700;">#${idx + 1}</td>
+          <td style="font-weight:700; color:var(--blue-600);">${item.name}</td>
+          <td>${item.orders.toLocaleString()} orders</td>
+          <td style="font-weight:700; color:var(--emerald-600);">${item.pct}%</td>
+          <td>CAD $${item.sales.toLocaleString()}</td>
+          <td style="color:#F59E0B; font-weight:700;">${item.rating.toFixed(2)} ★</td>
+        </tr>
+      `;
+    });
+    container.innerHTML = html;
+  }
