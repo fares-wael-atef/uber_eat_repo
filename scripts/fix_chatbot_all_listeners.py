@@ -1,4 +1,13 @@
-/**
+#!/usr/bin/env python3
+"""
+fix_chatbot_all_listeners.py —
+Ensures floating panel, full-screen AI chat page, Enter key, send buttons, and quick suggestion chips
+are 100% bound to event listeners in js/chatbot.js.
+"""
+
+def fix_chatbot():
+    bot_path = "/Users/mac/Downloads/AliBaba_Dashboard/js/chatbot.js"
+    content = """/**
  * chatbot.js v6 — Complete AI Assistant Controller
  */
 
@@ -201,10 +210,17 @@ Feel free to ask me about delivery vs pickup payouts, specific branches, menu be
 
     const div = document.createElement('div');
     div.className = `chat-msg ${sender}`;
-    div.innerHTML = `<div class="msg-bubble">${text.replace(/\n/g, '<br>')}</div>`;
+    div.innerHTML = `<div class="msg-bubble">${text.replace(/\\n/g, '<br>')}</div>`;
     container.appendChild(div);
     container.scrollTop = container.scrollHeight;
   }
 
   return { init, togglePanel, closePanel, openFullscreen };
 })();
+"""
+    with open(bot_path, "w") as f:
+        f.write(content)
+    print("[SUCCESS] Fixed js/chatbot.js listeners for panel and full-screen chat page")
+
+if __name__ == "__main__":
+    fix_chatbot()
