@@ -98,19 +98,19 @@
     const applyBtn = document.getElementById('applyFiltersBtn');
     const resetBtn = document.getElementById('resetFiltersBtn');
     const branchSelect = document.getElementById('filterBranch');
-    const channelSelect = document.getElementById('filterChannel');
+    // const channelSelect = document.getElementById('filterChannel');
     const dateSelect = document.getElementById('filterDate');
 
     function triggerFilterChange() {
       if (branchSelect && channelSelect && dateSelect) {
-        D.setFilters(branchSelect.value, channelSelect.value, dateSelect.value);
+        D.setFilters(branchSelect ? branchSelect.value : 'all', 'all', dateSelect ? dateSelect.value : 'all');
       }
       updateDashboard();
     }
 
     if (dateSelect) dateSelect.addEventListener('change', triggerFilterChange);
     if (branchSelect) branchSelect.addEventListener('change', triggerFilterChange);
-    if (channelSelect) channelSelect.addEventListener('change', triggerFilterChange);
+    
 
     if (applyBtn) {
       applyBtn.addEventListener('click', triggerFilterChange);
@@ -128,11 +128,11 @@
 
   function updateDashboard() {
     const branchSelect = document.getElementById('filterBranch');
-    const channelSelect = document.getElementById('filterChannel');
+    // const channelSelect = document.getElementById('filterChannel');
     const dateSelect = document.getElementById('filterDate');
 
     if (branchSelect && channelSelect && dateSelect) {
-      D.setFilters(branchSelect.value, channelSelect.value, dateSelect.value);
+      D.setFilters(branchSelect ? branchSelect.value : 'all', 'all', dateSelect ? dateSelect.value : 'all');
     }
 
     initKPIs();

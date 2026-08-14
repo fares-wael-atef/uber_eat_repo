@@ -1,4 +1,11 @@
-/**
+#!/usr/bin/env python3
+"""
+clean_chatbot_js.py — Restores pristine syntax for js/chatbot.js with full delivery vs pickup comparison knowledge.
+"""
+
+def clean_chatbot():
+    target = "/Users/mac/Downloads/AliBaba_Dashboard/js/chatbot.js"
+    content = """/**
  * chatbot.js v5 — AI Assistant with full channel breakdown knowledge and OpenRouter API key loading
  */
 
@@ -184,10 +191,17 @@ Always provide exact numerical figures, CAD payouts, order volumes, and comparat
 
     const div = document.createElement('div');
     div.className = `chat-msg ${sender}`;
-    div.innerHTML = `<div class="msg-bubble">${text.replace(/\n/g, '<br>')}</div>`;
+    div.innerHTML = `<div class="msg-bubble">${text.replace(/\\n/g, '<br>')}</div>`;
     container.appendChild(div);
     container.scrollTop = container.scrollHeight;
   }
 
   return { init, togglePanel, closePanel, openFullscreen };
 })();
+"""
+    with open(target, "w") as f:
+        f.write(content)
+    print("[SUCCESS] Cleaned js/chatbot.js with full delivery vs pickup comparison engine")
+
+if __name__ == "__main__":
+    clean_chatbot()

@@ -1,27 +1,30 @@
-/**
- * chatbot.js v5 — AI Assistant with full channel breakdown knowledge and OpenRouter API key loading
- */
+#!/usr/bin/env python3
+"""
+remove_channel_filter_and_boost_chatbot.py —
+1. Removes channel filter dropdown from dashboard.html.
+2. Updates js/chatbot.js so AI Assistant has smart 100% full knowledge of delivery vs pickup payouts, channel comparisons, branches, menu best sellers, and secondary basket pairings.
+3. Cleans js/dashboard.js filter handlers.
+"""
 
-window.ChatbotManager = (function () {
-  const API_KEY = window.OPENROUTER_API_KEY || (function() {
-    try {
-      return atob("c2stb3ItdjEtNWJhZDI4YWUwNmViNmMzMWI5YjFmOWZkOWZmNDMzMTgwMTMxOTViM2Q3OTVjNzMzNDc5MzNjYmUwZjUxNDY5MA==");
-    } catch(e) { return ""; }
-  })();
-  const API_URL = 'https://openrouter.ai/api/v1/chat/completions';
-  const MODEL = 'openai/gpt-4o-mini';
-  const STORAGE_KEY = 'alibaba_chat_history';
+import os, re
 
-  const D = window.DashboardData;
+def apply_updates():
+    # 1. Update dashboard.html (Remove filterChannel)
+    dash_path = "/Users/mac/Downloads/AliBaba_Dashboard/dashboard.html"
+    with open(dash_path) as f:
+        dhtml = f.read()
 
-  let isPanelOpen = false;
-  let isFullscreen = false;
-  let isLoading = false;
-  let isTyping = false;
-  let currentTypingTimer = null;
-  let conversationHistory = [];
+    dhtml = re.sub(r'<select id="filterChannel".*?</select>\s*', '', dhtml, flags=re.DOTALL)
+    with open(dash_path, "w") as f:
+        f.write(dhtml)
+    print("[SUCCESS] Removed filterChannel from dashboard.html")
 
-  function generateLocalDataResponse(query) {
+    # 2. Update js/chatbot.js (Boost AI Knowledge & Delivery vs Pickup comparison)
+    bot_path = "/Users/mac/Downloads/AliBaba_Dashboard/js/chatbot.js"
+    with open(bot_path) as f:
+        bcode = f.read()
+
+    new_local_func = """  function generateLocalDataResponse(query) {
     const q = (query || "").toLowerCase();
     const totals = D.getFilteredTotals();
     const bList = D.getBranchList();
@@ -116,78 +119,27 @@ window.ChatbotManager = (function () {
 - **Top Location**: **${topStore.name}** (CAD $${topStore.payout.toLocaleString()})
 
 Feel free to ask me about delivery vs pickup payouts, specific branches, menu best sellers, secondary basket pairings, or downtime causes!`;
-  }
+  }"""
 
-  function getSystemPrompt() {
-    return `You are an expert restaurant operations & analytics assistant for Ali Baba's Shawarma chain in Toronto, Canada.
-You have 100% full unrestricted access to all 9 Toronto stores, 10 reporting months (June 2025 – March 2026), 17,798 total orders, CAD $570,542.45 gross sales, and CAD $287,047.04 net payout.
-Always provide exact numerical figures, CAD payouts, order volumes, and comparative delivery vs pickup breakdowns.`;
-  }
+    bcode = re.sub(r'function generateLocalDataResponse\(query\) \{.*?^\s*\}', new_local_func.strip(), bcode, flags=re.DOTALL | re.MULTILINE)
 
-  function init() {
-    const fab = document.getElementById('chatbotFab');
-    const panel = document.getElementById('chatbotPanel');
-    const closeBtn = document.getElementById('chatbotCloseBtn');
-    const fullBtn = document.getElementById('chatbotFullscreenBtn');
-    const sendBtn = document.getElementById('chatSendBtn');
-    const input = document.getElementById('chatInput');
+    with open(bot_path, "w") as f:
+        f.write(bcode)
+    print("[SUCCESS] Updated js/chatbot.js with delivery vs pickup AI comparison intelligence")
 
-    if (fab) fab.addEventListener('click', togglePanel);
-    if (closeBtn) closeBtn.addEventListener('click', closePanel);
-    if (fullBtn) fullBtn.addEventListener('click', openFullscreen);
+    # 3. Update js/dashboard.js (Clean filterChannel references)
+    js_dash_path = "/Users/mac/Downloads/AliBaba_Dashboard/js/dashboard.js"
+    with open(js_dash_path) as f:
+        jcode = f.read()
 
-    if (sendBtn) sendBtn.addEventListener('click', () => handleSend('panel'));
-    if (input) {
-      input.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-          e.preventDefault();
-          handleSend('panel');
-        }
-      });
-    }
-  }
+    jcode = jcode.replace("const channelSelect = document.getElementById('filterChannel');", "// const channelSelect = document.getElementById('filterChannel');")
+    jcode = jcode.replace("if (channelSelect) channelSelect.addEventListener('change', triggerFilterChange);", "")
+    jcode = jcode.replace("D.setFilters(branchSelect.value, channelSelect ? channelSelect.value : 'all', dateSelect.value);", "D.setFilters(branchSelect ? branchSelect.value : 'all', 'all', dateSelect ? dateSelect.value : 'all');")
+    jcode = jcode.replace("D.setFilters(branchSelect.value, channelSelect.value, dateSelect.value);", "D.setFilters(branchSelect ? branchSelect.value : 'all', 'all', dateSelect ? dateSelect.value : 'all');")
 
-  function togglePanel() {
-    isPanelOpen = !isPanelOpen;
-    const panel = document.getElementById('chatbotPanel');
-    if (panel) panel.classList.toggle('open', isPanelOpen);
-  }
+    with open(js_dash_path, "w") as f:
+        f.write(jcode)
+    print("[SUCCESS] Updated js/dashboard.js")
 
-  function closePanel() {
-    isPanelOpen = false;
-    const panel = document.getElementById('chatbotPanel');
-    if (panel) panel.classList.remove('open');
-  }
-
-  function openFullscreen() {
-    if (window.showSection) window.showSection('chatbot');
-  }
-
-  async function handleSend(mode) {
-    const input = document.getElementById(mode === 'panel' ? 'chatInput' : 'fsChatInput');
-    if (!input) return;
-    const msg = input.value.trim();
-    if (!msg) return;
-
-    appendMessage('user', msg, mode);
-    input.value = '';
-
-    const localReply = generateLocalDataResponse(msg);
-    setTimeout(() => {
-      appendMessage('bot', localReply, mode);
-    }, 400);
-  }
-
-  function appendMessage(sender, text, mode) {
-    const container = document.getElementById(mode === 'panel' ? 'chatMessages' : 'fsChatMessages');
-    if (!container) return;
-
-    const div = document.createElement('div');
-    div.className = `chat-msg ${sender}`;
-    div.innerHTML = `<div class="msg-bubble">${text.replace(/\n/g, '<br>')}</div>`;
-    container.appendChild(div);
-    container.scrollTop = container.scrollHeight;
-  }
-
-  return { init, togglePanel, closePanel, openFullscreen };
-})();
+if __name__ == "__main__":
+    apply_updates()
