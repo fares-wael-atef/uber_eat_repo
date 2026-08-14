@@ -1,4 +1,77 @@
-/**
+#!/usr/bin/env python3
+"""
+build_full_openrouter_chatbot.py —
+1. Encodes OpenRouter API key via Base64.
+2. Integrates full OpenRouter AI API fetch call with local dataset fallback.
+3. Implements Delete / Clear conversation button for floating panel AND full-screen workspace.
+4. Fixes Full-Screen AI Chat section rendering and element IDs.
+"""
+
+import os, re
+
+def build_chatbot():
+    # 1. Update dashboard.html markup to ensure clear buttons and section-chatbot elements exist
+    dash_path = "/Users/mac/Downloads/AliBaba_Dashboard/dashboard.html"
+    with open(dash_path) as f:
+        html = f.read()
+
+    # Ensure chatbotClearBtn in floating header
+    if 'id="chatbotClearBtn"' not in html:
+        html = html.replace(
+          '<button class="panel-icon-btn" id="chatbotFullscreenBtn"',
+          '<button class="panel-icon-btn" id="chatbotClearBtn" title="Clear Conversation" style="background:none; border:none; color:white; cursor:pointer; font-size:1.1rem; margin-right:6px;">🗑️</button>\n          <button class="panel-icon-btn" id="chatbotFullscreenBtn"'
+        )
+
+    # Ensure section-chatbot exists and has clear button
+    if 'id="section-chatbot"' in html:
+        # replace section-chatbot with clean version
+        old_sec_pattern = r'<div class="section" id="section-chatbot">.*?</div>\s*</div>\s*</div>'
+        new_sec = """<div class="section" id="section-chatbot">
+      <div class="chatbot-fs-container" style="display:flex; height:calc(100vh - 120px); background:var(--surface); border:1px solid var(--border); border-radius:16px; overflow:hidden;">
+        <!-- FS Sidebar -->
+        <div class="chatbot-fs-sidebar" style="width:280px; background:var(--surface-2); border-right:1px solid var(--border); padding:20px; display:flex; flex-direction:column; gap:16px;">
+          <div style="font-weight:800; font-size:1.1rem; color:var(--blue-600);">AI Assistant Workspace</div>
+          <button class="fs-new-chat-btn" id="fsClearChatBtn" style="padding:10px; background:var(--blue-600); color:white; border:none; border-radius:10px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;">
+            <span>🗑️ Clear Conversation</span>
+          </button>
+          
+          <div style="font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; margin-top:8px;">Quick Insights Prompts</div>
+          <div class="fs-quick-prompts" style="display:flex; flex-direction:column; gap:8px;">
+            <button class="fs-prompt-chip" data-prompt="Give me net payout for each fulfillment method (delivery vs pickup)">Compare Delivery vs Pickup Payouts</button>
+            <button class="fs-prompt-chip" data-prompt="What are the top 10 best seller menu items and secondary basket add-ons?">Top 10 Menu Best Sellers</button>
+            <button class="fs-prompt-chip" data-prompt="Summarize financial sales, fees, and payout revenue for 10-month dataset">10-Month Financial Summary</button>
+            <button class="fs-prompt-chip" data-prompt="What are the main causes of offline downtime across branches?">Offline Downtime Causes</button>
+            <button class="fs-prompt-chip" data-prompt="Which branch has the lowest customer rating and highest inaccuracy errors?">Branch Issues & Ratings</button>
+          </div>
+        </div>
+
+        <!-- FS Main Chat Area -->
+        <div class="chatbot-fs-chat-main" style="flex:1; display:flex; flex-direction:column; min-width:0;">
+          <div class="chatbot-fs-messages" id="chatMessagesFs" style="flex:1; overflow-y:auto; padding:24px; display:flex; flex-direction:column; gap:16px;">
+            <div class="chat-msg bot">
+              <div class="msg-bubble">
+                Hello! I am your AI Operations Assistant for Ali Baba's Shawarma. I have 100% full access to all 9 Toronto stores, 10 reporting months, financial payouts, downtime causes, and menu best sellers. Ask me anything!
+              </div>
+            </div>
+          </div>
+          <div class="chatbot-fs-input-area" style="padding:16px 24px; border-top:1px solid var(--border); background:var(--surface);">
+            <div style="display:flex; gap:12px; align-items:center;">
+              <input type="text" id="chatInputFs" placeholder="Type your operational query... (e.g. compare delivery vs pickup net payout)" style="flex:1; padding:12px 16px; border-radius:12px; border:1px solid var(--border); background:var(--surface-2); color:var(--text-primary); font-size:0.9rem;" />
+              <button id="chatSendBtnFs" style="padding:12px 20px; border-radius:12px; background:var(--blue-600); color:white; border:none; font-weight:700; cursor:pointer;">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>"""
+        html = re.sub(old_sec_pattern, new_sec, html, flags=re.DOTALL)
+
+    with open(dash_path, "w") as f:
+        f.write(html)
+    print("[SUCCESS] Updated dashboard.html with clear buttons and chatbot workspace")
+
+    # 2. Rebuild js/chatbot.js with OpenRouter API + Local Fallback + Delete logic
+    bot_path = "/Users/mac/Downloads/AliBaba_Dashboard/js/chatbot.js"
+    bot_code = """/**
  * chatbot.js v8 — Complete OpenRouter AI Assistant + Local Dataset Intelligence
  */
 
@@ -327,10 +400,17 @@ Feel free to ask me about delivery vs pickup payouts, specific branches, menu be
 
     const div = document.createElement('div');
     div.className = `chat-msg ${sender}`;
-    div.innerHTML = `<div class="msg-bubble">${text.replace(/\n/g, '<br>')}</div>`;
+    div.innerHTML = `<div class="msg-bubble">${text.replace(/\\n/g, '<br>')}</div>`;
     container.appendChild(div);
     container.scrollTop = container.scrollHeight;
   }
 
   return { init, togglePanel, closePanel, openFullscreen, clearConversation };
 })();
+"""
+    with open(bot_path, "w") as f:
+        f.write(bot_code)
+    print("[SUCCESS] Rebuilt js/chatbot.js with OpenRouter API + fallback + clear conversation support")
+
+if __name__ == "__main__":
+    build_chatbot()
