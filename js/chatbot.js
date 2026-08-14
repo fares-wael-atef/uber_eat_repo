@@ -17,6 +17,30 @@ window.ChatbotManager = (function () {
   let isPanelOpen = false;
   let conversationHistory = []; // Array of { role: 'user'|'assistant', content: string }
 
+    function parseMarkdown(text) {
+    if (!text) return '';
+    let html = text;
+
+    // 1. Convert markdown headers (### Header)
+    html = html.replace(/^### (.*$)/gim, '<h4 style="margin:12px 0 6px 0; font-size:0.96rem; font-weight:800; color:var(--blue-600, #2563eb);">$1</h4>');
+    html = html.replace(/^## (.*$)/gim, '<h3 style="margin:14px 0 8px 0; font-size:1.02rem; font-weight:800; color:var(--text-primary);">$1</h3>');
+
+    // 2. Convert bold text (**text** or __text__) to real <strong> elements
+    html = html.replace(/\*\*(.*?)\*\*/g, '<strong style="font-weight:700; color:var(--text-primary);">$1</strong>');
+    html = html.replace(/__(.*?)__/g, '<strong style="font-weight:700; color:var(--text-primary);">$1</strong>');
+
+    // 3. Convert italic text (*text* or _text_)
+    html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+    // 4. Convert bullet list lines (- Item)
+    html = html.replace(/^\- (.*$)/gim, '<li style="margin-left:16px; margin-bottom:3px; list-style-type:disc;">$1</li>');
+
+    // 5. Convert newlines to <br>
+    html = html.replace(/\n/g, '<br>');
+
+    return html;
+  }
+
   function getSystemPrompt() {
     const totals = D.getFilteredTotals();
     const bList = D.getBranchList();
@@ -190,7 +214,7 @@ Feel free to ask me about delivery vs pickup payouts, specific branches, menu be
         const isUser = item.role === 'user';
         const avatar = isUser ? 'WA' : '🤖';
         const sender = isUser ? 'user' : 'bot';
-        const formatted = item.content.replace(/\n/g, '<br>');
+        const formatted = parseMarkdown(item.content);
         html += `
           <div class="chat-msg ${sender}">
             <div class="msg-avatar">${avatar}</div>
