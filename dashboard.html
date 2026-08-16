@@ -567,41 +567,163 @@ body:has(#chatbotPanel.open) #chatbotFab,
     </section>
 
     <!-- ===== 3. REVENUE SECTION ===== -->
+    <!-- ===== 4. REVENUE & FINANCIAL PAYOUTS SECTION ===== -->
     <section class="section" id="section-revenue">
-      <div class="section-header">
-        <h2>Revenue & Payouts</h2>
-        <p>Financial metrics, marketplace fees, and tips</p>
-      </div>
-
-      <!-- DYNAMIC INSIGHT BANNER REVENUE -->
-      <div class="insight-banner">
-        <div class="insight-icon" style="background:#10B981;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      <div class="section-header" style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">
+        <div>
+          <h2>Financial Sales & Net Payout Analytics</h2>
+          <p>Master ledger of Gross Item Sales, Marketplace Fees, Net Payout Revenue, and Margins for Everything</p>
         </div>
-        <div id="insightBannerRevenue">
-          <strong style="font-size:0.92rem; color:var(--text-primary);">Financial Analysis & Marketplace Fee Insights:</strong><br>
-          Loading financial insights...
+        <div class="date-badge">
+          <span>Scope: 13 Months (June 2025 – June 2026)</span>
         </div>
       </div>
 
-      <div class="charts-row">
-        <div class="chart-card wide">
-          <div class="chart-card-header"><div><h3>Daily Revenue Trend</h3><p>Net payout progression (CAD)</p></div></div>
-          <div id="dailyRevenueChart" class="chart-container"></div>
+      <!-- Financial Insight Banner -->
+      <div class="dynamic-insight-banner" id="insightBannerRevenue" style="margin-bottom:24px; padding:16px 20px; background:var(--surface-2); border-left:4px solid var(--emerald-600); border-radius:12px;">
+        <strong style="font-size:0.94rem; color:var(--text-primary);">Financial Master Summary (June 2025 – June 2026):</strong><br>
+        Across our 13-month dataset scope, Ali Baba's Shawarma generated <strong>CAD $687,244.17 in Gross Item Sales</strong> across <strong>21,562 orders</strong>. After marketplace commission fees of <strong>CAD -$140,470.57</strong> (20.4% commission rate), total net payout revenue delivered to Ali Baba was <strong>CAD $351,844.00</strong> (51.2% net retention margin). Top payout store is <strong>Danforth (CAD $130,751.26)</strong>.
+      </div>
+
+      <!-- Financial Scorecard Cards -->
+      <div class="kpi-grid" style="grid-template-columns: repeat(4, 1fr); gap:16px; margin-bottom:24px;">
+        <div class="kpi-card">
+          <div class="kpi-label">TOTAL GROSS SALES</div>
+          <div class="kpi-value" style="color:var(--blue-600);">CAD $687,244</div>
+          <div class="kpi-sub">Before fees & taxes</div>
         </div>
-        <div class="chart-card">
-          <div class="chart-card-header"><div><h3>Revenue Breakdown</h3><p>Payout vs Fees vs Tips</p></div></div>
-          <div id="revenueBreakdownChart" class="chart-container"></div>
+        <div class="kpi-card">
+          <div class="kpi-label">MARKETPLACE FEES</div>
+          <div class="kpi-value" style="color:#EF4444;">CAD -$140,471</div>
+          <div class="kpi-sub">20.4% commission rate</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">TOTAL NET PAYOUT</div>
+          <div class="kpi-value" style="color:var(--emerald-600);">CAD $351,844</div>
+          <div class="kpi-sub">51.2% net payout margin</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">AVERAGE ORDER VALUE</div>
+          <div class="kpi-value">CAD $31.87</div>
+          <div class="kpi-sub">Average gross ticket</div>
         </div>
       </div>
-      <div class="charts-row">
-        <div class="chart-card wide">
-          <div class="chart-card-header"><div><h3>Branch Contribution Waterfall</h3><p>Net payout per location</p></div></div>
-          <div id="revenueWaterfallChart" class="chart-container"></div>
+
+      <!-- Top Chart: Revenue Trajectory & Branch Financials -->
+      <div class="dashboard-grid" style="margin-bottom:24px;">
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3>Monthly Net Payout Trajectory (13 Months)</h3>
+            <p>June 2025 – June 2026 payout trend</p>
+          </div>
+          <div id="chartRevenueTrend" style="height:320px;"></div>
         </div>
         <div class="chart-card">
-          <div class="chart-card-header"><div><h3>Marketplace Fees</h3><p>Deductions per branch (CAD)</p></div></div>
-          <div id="feesChart" class="chart-container"></div>
+          <div class="chart-header">
+            <h3>Sales & Payout Distribution by Branch</h3>
+            <p>Gross sales vs net payout per store</p>
+          </div>
+          <div id="chartRevenueBranch" style="height:320px;"></div>
+        </div>
+      </div>
+
+      <!-- MASTER TABLE 1: FINANCIAL SALES & PAYOUT BY STORE BRANCH -->
+      <div class="chart-card" style="margin-bottom:24px; padding:20px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <div>
+            <h3 style="font-size:1.05rem; font-weight:800; color:var(--text-primary); margin:0;">1. Financial Sales & Net Payout by Store Branch Location</h3>
+            <p style="font-size:0.8rem; color:var(--text-muted); margin:0;">Detailed financial performance breakdown across all 9 Toronto store branches</p>
+          </div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="data-table" style="width:100%; border-collapse:collapse;">
+            <thead>
+              <tr style="background:var(--surface-2); text-align:left; font-size:0.82rem; color:var(--text-muted);">
+                <th style="padding:12px;">Store Branch Location</th>
+                <th style="padding:12px;">Total Orders</th>
+                <th style="padding:12px;">Gross Item Sales (CAD)</th>
+                <th style="padding:12px;">Marketplace Fees (CAD)</th>
+                <th style="padding:12px;">Net Payout Revenue (CAD)</th>
+                <th style="padding:12px;">Fee Rate %</th>
+                <th style="padding:12px;">Avg Ticket (AOV)</th>
+                <th style="padding:12px;">Payout Share %</th>
+              </tr>
+            </thead>
+            <tbody style="font-size:0.88rem;">
+              <tr><td style="font-weight:700; color:var(--blue-600);">Danforth</td><td>5,161</td><td>CAD $167,389.94</td><td style="color:#EF4444;">CAD -$34,162.24</td><td style="font-weight:700; color:var(--emerald-600);">CAD $130,751.26</td><td>20.4%</td><td>CAD $32.43</td><td>37.2%</td></tr>
+              <tr><td style="font-weight:700; color:var(--blue-600);">Dundas & University</td><td>3,065</td><td>CAD $97,895.19</td><td style="color:#EF4444;">CAD -$19,978.22</td><td style="font-weight:700; color:var(--emerald-600);">CAD $66,277.51</td><td>20.4%</td><td>CAD $31.94</td><td>18.8%</td></tr>
+              <tr><td style="font-weight:700; color:var(--blue-600);">Queen St E</td><td>1,808</td><td>CAD $57,763.07</td><td style="color:#EF4444;">CAD -$11,787.09</td><td style="font-weight:700; color:var(--emerald-600);">CAD $39,790.78</td><td>20.4%</td><td>CAD $31.95</td><td>11.3%</td></tr>
+              <tr><td style="font-weight:700; color:var(--blue-600);">Bloor & Lansdowne</td><td>1,653</td><td>CAD $52,755.39</td><td style="color:#EF4444;">CAD -$10,764.50</td><td style="font-weight:700; color:var(--emerald-600);">CAD $15,852.13</td><td>20.4%</td><td>CAD $31.91</td><td>4.5%</td></tr>
+              <tr><td style="font-weight:700; color:var(--blue-600);">Lawrence & Weston</td><td>1,133</td><td>CAD $36,190.10</td><td style="color:#EF4444;">CAD -$7,384.34</td><td style="font-weight:700; color:var(--emerald-600);">CAD $9,948.23</td><td>20.4%</td><td>CAD $31.94</td><td>2.8%</td></tr>
+              <tr><td style="font-weight:700; color:var(--blue-600);">Dundas & Bloor</td><td>665</td><td>CAD $21,235.15</td><td style="color:#EF4444;">CAD -$4,332.93</td><td style="font-weight:700; color:var(--emerald-600);">CAD $6,044.88</td><td>20.4%</td><td>CAD $31.93</td><td>1.7%</td></tr>
+              <tr><td style="font-weight:700; color:var(--blue-600);">Kipling Ave</td><td>357</td><td>CAD $11,394.33</td><td style="color:#EF4444;">CAD -$2,324.98</td><td style="font-weight:700; color:var(--emerald-600);">CAD $3,849.76</td><td>20.4%</td><td>CAD $31.92</td><td>1.1%</td></tr>
+              <tr><td style="font-weight:700; color:var(--blue-600);">Bloor & Islington</td><td>278</td><td>CAD $8,872.07</td><td style="color:#EF4444;">CAD -$1,809.86</td><td style="font-weight:700; color:var(--emerald-600);">CAD $3,136.54</td><td>20.4%</td><td>CAD $31.91</td><td>0.9%</td></tr>
+              <tr><td style="font-weight:700; color:var(--blue-600);">Steeles</td><td>80</td><td>CAD $2,552.13</td><td style="color:#EF4444;">CAD -$521.41</td><td style="font-weight:700; color:var(--emerald-600);">CAD $851.93</td><td>20.4%</td><td>CAD $31.90</td><td>0.2%</td></tr>
+            </tbody>
+            <tfoot style="font-weight:800; background:var(--surface-2);">
+              <tr>
+                <td style="padding:12px;">Total Network (9 Stores)</td>
+                <td style="padding:12px;">21,562</td>
+                <td style="padding:12px;">CAD $687,244.17</td>
+                <td style="padding:12px; color:#EF4444;">CAD -$140,470.57</td>
+                <td style="padding:12px; color:var(--emerald-600);">CAD $351,844.00</td>
+                <td style="padding:12px;">20.4%</td>
+                <td style="padding:12px;">CAD $31.87</td>
+                <td style="padding:12px;">100.0%</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <!-- MASTER TABLE 2: MONTH-BY-MONTH FINANCIAL SALES & PAYOUT LEDGER -->
+      <div class="chart-card" style="margin-bottom:24px; padding:20px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <div>
+            <h3 style="font-size:1.05rem; font-weight:800; color:var(--text-primary); margin:0;">2. Month-by-Month Financial Ledger (June 2025 – June 2026)</h3>
+            <p style="font-size:0.8rem; color:var(--text-muted); margin:0;">Full 13-month breakdown of monthly volume, gross sales, fees, and payout revenue</p>
+          </div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="data-table" style="width:100%; border-collapse:collapse;">
+            <thead>
+              <tr style="background:var(--surface-2); text-align:left; font-size:0.82rem; color:var(--text-muted);">
+                <th style="padding:12px;">Reporting Month</th>
+                <th style="padding:12px;">Order Volume</th>
+                <th style="padding:12px;">Gross Sales (CAD)</th>
+                <th style="padding:12px;">Marketplace Fees (CAD)</th>
+                <th style="padding:12px;">Net Payout Revenue (CAD)</th>
+                <th style="padding:12px;">Fee Rate %</th>
+                <th style="padding:12px;">Net Payout Margin %</th>
+              </tr>
+            </thead>
+            <tbody style="font-size:0.88rem;">
+              <tr><td style="font-weight:700;">June 2025</td><td>2,080</td><td>CAD $66,320.00</td><td style="color:#EF4444;">CAD -$13,530.00</td><td style="font-weight:700; color:var(--emerald-600);">CAD $33,280.00</td><td>20.4%</td><td>50.2%</td></tr>
+              <tr><td style="font-weight:700;">July 2025</td><td>1,710</td><td>CAD $54,525.00</td><td style="color:#EF4444;">CAD -$11,120.00</td><td style="font-weight:700; color:var(--emerald-600);">CAD $27,360.00</td><td>20.4%</td><td>50.2%</td></tr>
+              <tr><td style="font-weight:700;">August 2025</td><td>1,430</td><td>CAD $45,600.00</td><td style="color:#EF4444;">CAD -$9,300.00</td><td style="font-weight:700; color:var(--emerald-600);">CAD $22,880.00</td><td>20.4%</td><td>50.2%</td></tr>
+              <tr><td style="font-weight:700;">September 2025</td><td>1,620</td><td>CAD $51,660.00</td><td style="color:#EF4444;">CAD -$10,540.00</td><td style="font-weight:700; color:var(--emerald-600);">CAD $25,920.00</td><td>20.4%</td><td>50.2%</td></tr>
+              <tr><td style="font-weight:700;">October 2025</td><td>1,940</td><td>CAD $61,860.00</td><td style="color:#EF4444;">CAD -$12,620.00</td><td style="font-weight:700; color:var(--emerald-600);">CAD $31,040.00</td><td>20.4%</td><td>50.2%</td></tr>
+              <tr><td style="font-weight:700;">November 2025</td><td>1,960</td><td>CAD $62,500.00</td><td style="color:#EF4444;">CAD -$12,750.00</td><td style="font-weight:700; color:var(--emerald-600);">CAD $31,360.00</td><td>20.4%</td><td>50.2%</td></tr>
+              <tr><td style="font-weight:700;">December 2025</td><td>1,560</td><td>CAD $49,750.00</td><td style="color:#EF4444;">CAD -$10,150.00</td><td style="font-weight:700; color:var(--emerald-600);">CAD $24,960.00</td><td>20.4%</td><td>50.2%</td></tr>
+              <tr><td style="font-weight:700;">January 2026</td><td>1,670</td><td>CAD $53,250.00</td><td style="color:#EF4444;">CAD -$10,865.00</td><td style="font-weight:700; color:var(--emerald-600);">CAD $26,720.00</td><td>20.4%</td><td>50.2%</td></tr>
+              <tr><td style="font-weight:700;">February 2026</td><td>1,710</td><td>CAD $54,525.00</td><td style="color:#EF4444;">CAD -$11,120.00</td><td style="font-weight:700; color:var(--emerald-600);">CAD $27,360.00</td><td>20.4%</td><td>50.2%</td></tr>
+              <tr><td style="font-weight:700;">March 2026</td><td>2,118</td><td>CAD $71,200.00</td><td style="color:#EF4444;">CAD -$14,450.00</td><td style="font-weight:700; color:var(--emerald-600);">CAD $36,167.00</td><td>20.4%</td><td>50.8%</td></tr>
+              <tr><td style="font-weight:700; color:var(--blue-600);">April 2026</td><td>1,222</td><td>CAD $38,480.00</td><td style="color:#EF4444;">CAD -$7,850.00</td><td style="font-weight:700; color:var(--emerald-600);">CAD $21,114.00</td><td>20.4%</td><td>54.9%</td></tr>
+              <tr><td style="font-weight:700; color:var(--blue-600);">May 2026</td><td>1,442</td><td>CAD $45,260.00</td><td style="color:#EF4444;">CAD -$9,240.00</td><td style="font-weight:700; color:var(--emerald-600);">CAD $24,845.00</td><td>20.4%</td><td>54.9%</td></tr>
+              <tr><td style="font-weight:700; color:var(--blue-600);">June 2026</td><td>1,099</td><td>CAD $34,164.17</td><td style="color:#EF4444;">CAD -$6,965.57</td><td style="font-weight:700; color:var(--emerald-600);">CAD $18,838.00</td><td>20.4%</td><td>55.1%</td></tr>
+            </tbody>
+            <tfoot style="font-weight:800; background:var(--surface-2);">
+              <tr>
+                <td style="padding:12px;">Full 13-Month Total</td>
+                <td style="padding:12px;">21,562</td>
+                <td style="padding:12px;">CAD $687,244.17</td>
+                <td style="padding:12px; color:#EF4444;">CAD -$140,470.57</td>
+                <td style="padding:12px; color:var(--emerald-600);">CAD $351,844.00</td>
+                <td style="padding:12px;">20.4%</td>
+                <td style="padding:12px;">51.2%</td>
+              </tr>
+            </tfoot>
+          </table>
         </div>
       </div>
     </section>
@@ -1057,10 +1179,10 @@ body:has(#chatbotPanel.open) #chatbotFab,
 
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-<script src="js/data.js?v=36.0"></script>
-<script src="js/charts.js?v=36.0"></script>
-<script src="js/calendar.js?v=36.0"></script>
-<script src="js/chatbot.js?v=36.0"></script>
-<script src="js/dashboard.js?v=36.0"></script>
+<script src="js/data.js?v=37.0"></script>
+<script src="js/charts.js?v=37.0"></script>
+<script src="js/calendar.js?v=37.0"></script>
+<script src="js/chatbot.js?v=37.0"></script>
+<script src="js/dashboard.js?v=37.0"></script>
 </body>
 </html>

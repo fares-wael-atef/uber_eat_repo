@@ -1,4 +1,11 @@
-/**
+#!/usr/bin/env python3
+"""
+clean_chatbot_13m.py — Restores pristine syntax for js/chatbot.js with full 13-month dataset prompt.
+"""
+
+def clean_chatbot():
+    target = "/Users/mac/Downloads/AliBaba_Dashboard/js/chatbot.js"
+    content = """/**
  * chatbot.js v13 — Complete AI Assistant Controller (13-Month Dataset Scope: June 2025 – June 2026)
  */
 
@@ -26,17 +33,17 @@ window.ChatbotManager = (function () {
     html = html.replace(/^## (.*$)/gim, '<h3 style="margin:14px 0 8px 0; font-size:1.02rem; font-weight:800; color:var(--text-primary);">$1</h3>');
 
     // 2. Convert bold text (**text** or __text__) to real <strong> elements
-    html = html.replace(/\*\*(.*?)\*\*/g, '<strong style="font-weight:700; color:var(--text-primary);">$1</strong>');
+    html = html.replace(/\\*\\*(.*?)\\*\\*/g, '<strong style="font-weight:700; color:var(--text-primary);">$1</strong>');
     html = html.replace(/__(.*?)__/g, '<strong style="font-weight:700; color:var(--text-primary);">$1</strong>');
 
     // 3. Convert italic text (*text* or _text_)
-    html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    html = html.replace(/\\*(.*?)\\*/g, '<em>$1</em>');
 
     // 4. Convert bullet list lines (- Item)
-    html = html.replace(/^\- (.*$)/gim, '<li style="margin-left:16px; margin-bottom:3px; list-style-type:disc;">$1</li>');
+    html = html.replace(/^\\- (.*$)/gim, '<li style="margin-left:16px; margin-bottom:3px; list-style-type:disc;">$1</li>');
 
     // 5. Convert newlines to <br>
-    html = html.replace(/\n/g, '<br>');
+    html = html.replace(/\\n/g, '<br>');
 
     return html;
   }
@@ -466,3 +473,10 @@ Feel free to ask me about delivery vs pickup payouts, specific branches, menu be
 
   return { init, togglePanel, closePanel, openFullscreen, closeFullscreen, clearConversation };
 })();
+"""
+    with open(target, "w") as f:
+        f.write(content)
+    print("[SUCCESS] Cleaned js/chatbot.js for 13-month dataset")
+
+if __name__ == "__main__":
+    clean_chatbot()
