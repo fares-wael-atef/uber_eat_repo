@@ -1,4 +1,15 @@
-/**
+#!/usr/bin/env python3
+"""
+fix_all_data_properties_for_charts.py —
+Restores every missing property on window.DashboardData so all amCharts 5 graphics render flawlessly.
+13-Month Scope: June 2025 – June 2026 (21,562 Orders | CAD $687,244.17 Gross Sales | CAD $351,844.00 Net Payout)
+"""
+
+import os
+
+def fix_data():
+    data_path = "/Users/mac/Downloads/AliBaba_Dashboard/js/data.js"
+    new_data_code = """/**
  * data.js v15 — Central Data Engine for Ali Baba's Shawarma
  * Full 13-Month Dataset Scope: June 2025 – June 2026 (21,562 Orders | CAD $687,244.17 Gross Sales | CAD $351,844.00 Net Payout)
  */
@@ -209,3 +220,10 @@ window.DashboardData = (function () {
     issueTypes, topInaccurateItems, getMultiMonthTrends, top10MenuItems, getChannelBreakdown, getActivePeriodLabel
   };
 })();
+"""
+    with open(data_path, "w") as f:
+        f.write(new_data_code)
+    print("[SUCCESS] Fixed all data properties and arrays on window.DashboardData")
+
+if __name__ == "__main__":
+    fix_data()
