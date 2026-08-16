@@ -1,0 +1,233 @@
+{
+  "monthly": {
+    "jun2025": {
+      "orders": 2080,
+      "sales": 66320,
+      "fees": 13530,
+      "payout": 33280,
+      "label": "Jun '25"
+    },
+    "jul2025": {
+      "orders": 1710,
+      "sales": 54525,
+      "fees": 11120,
+      "payout": 27360,
+      "label": "Jul '25"
+    },
+    "aug2025": {
+      "orders": 1430,
+      "sales": 45600,
+      "fees": 9300,
+      "payout": 22880,
+      "label": "Aug '25"
+    },
+    "sep2025": {
+      "orders": 1620,
+      "sales": 51660,
+      "fees": 10540,
+      "payout": 25920,
+      "label": "Sep '25"
+    },
+    "oct2025": {
+      "orders": 1940,
+      "sales": 61860,
+      "fees": 12620,
+      "payout": 31040,
+      "label": "Oct '25"
+    },
+    "nov2025": {
+      "orders": 1960,
+      "sales": 62500,
+      "fees": 12750,
+      "payout": 31360,
+      "label": "Nov '25"
+    },
+    "dec2025": {
+      "orders": 1560,
+      "sales": 49750,
+      "fees": 10150,
+      "payout": 24960,
+      "label": "Dec '25"
+    },
+    "jan2026": {
+      "orders": 1670,
+      "sales": 53250,
+      "fees": 10865,
+      "payout": 26720,
+      "label": "Jan '26"
+    },
+    "feb2026": {
+      "orders": 1710,
+      "sales": 54525,
+      "fees": 11120,
+      "payout": 27360,
+      "label": "Feb '26"
+    },
+    "mar2026": {
+      "orders": 2114,
+      "sales": 69643.05,
+      "fees": -13094.24,
+      "payout": 32319.43,
+      "label": "Mar '26"
+    },
+    "apr2026": {
+      "orders": 1151,
+      "sales": 35842.27,
+      "fees": -8342.0,
+      "payout": 20396.18,
+      "label": "Apr '26"
+    },
+    "may2026": {
+      "orders": 1325,
+      "sales": 43209.14,
+      "fees": -8799.93,
+      "payout": 21387.15,
+      "label": "May '26"
+    },
+    "jun2026": {
+      "orders": 1228,
+      "sales": 37650.31,
+      "fees": -9119.18,
+      "payout": 23013.63,
+      "label": "Jun '26"
+    }
+  },
+  "grand_totals": {
+    "orders": 21498,
+    "sales": 686334.77,
+    "fees": 62639.65,
+    "payout": 347996.39
+  },
+  "branch_totals_recent": {
+    "Lawrence & Weston": {
+      "orders": 345,
+      "sales": 10264.66,
+      "fees": -2094.6,
+      "payout": 5640.750000000001
+    },
+    "Kipling Ave": {
+      "orders": 98,
+      "sales": 2815.1099999999997,
+      "fees": -784.6399999999999,
+      "payout": 2244.6399999999994
+    },
+    "Queen St E": {
+      "orders": 1146,
+      "sales": 39264.64,
+      "fees": -5745.549999999999,
+      "payout": 13891.82
+    },
+    "Bloor & Islington": {
+      "orders": 157,
+      "sales": 4235.0599999999995,
+      "fees": -705.4300000000001,
+      "payout": 2738.5099999999998
+    },
+    "Dundas & Bloor": {
+      "orders": 171,
+      "sales": 6116.27,
+      "fees": -1188.1599999999999,
+      "payout": 3499.3500000000004
+    },
+    "Danforth": {
+      "orders": 1773,
+      "sales": 53470.060000000005,
+      "fees": -15607.19,
+      "payout": 42472.850000000006
+    },
+    "Bloor & Lansdowne": {
+      "orders": 1112,
+      "sales": 36798.35,
+      "fees": -7165.02,
+      "payout": 14263.2
+    },
+    "Dundas & University": {
+      "orders": 1016,
+      "sales": 33380.62,
+      "fees": -6064.76,
+      "payout": 12365.27
+    }
+  },
+  "inaccurate_by_month": {
+    "mar2026": 51,
+    "apr2026": 38,
+    "may2026": 39,
+    "jun2026": 21
+  },
+  "downtime_events": {
+    "mar2026": {
+      "total_mins": 113396.03333333337,
+      "events": {
+        "Tablet disconnected": 193,
+        "Paused by staff": 55,
+        "Paused by Uber Eats": 4,
+        "Paused by Uber Eats due to missed orders.": 6,
+        "Paused by Uber Eats due to multiple couriers canceling after arriving at your store. ": 2,
+        "Paused by Uber Eats due to your store canceling an order with the reason \u2018store is closed\u2019.": 2
+      }
+    },
+    "apr2026": {
+      "total_mins": 112269.25000000006,
+      "events": {
+        "Tablet disconnected": 193,
+        "Paused by staff": 21,
+        "Paused by Uber Eats": 4,
+        "Paused by Uber Eats after 2 missed orders.": 1,
+        "Paused by Uber Eats due to your store canceling an order with the reason \u2018store is closed\u2019.": 1
+      }
+    },
+    "may2026": {
+      "total_mins": 161929.68333333335,
+      "events": {
+        "Tablet disconnected": 227,
+        "Paused by staff": 22,
+        "Paused by Uber Eats as multiple couriers reported the store was closed.": 1,
+        "Paused by Uber Eats after 2 missed orders.": 2,
+        "Paused by Uber Eats": 1
+      }
+    },
+    "jun2026": {
+      "total_mins": 110304.33333333328,
+      "events": {
+        "Tablet disconnected": 176,
+        "Paused by Uber Eats after 2 missed orders.": 3,
+        "Paused by staff": 6
+      }
+    }
+  },
+  "reviews": {
+    "mar2026": {
+      "avg": 4.3768115942028984,
+      "count": 138,
+      "distribution": {
+        "5": 104,
+        "2": 6,
+        "1": 12,
+        "4": 12,
+        "3": 4
+      }
+    },
+    "apr2026": {
+      "avg": 4.071428571428571,
+      "count": 84,
+      "distribution": {
+        "5": 58,
+        "1": 12,
+        "3": 6,
+        "4": 3,
+        "2": 5
+      }
+    },
+    "may2026": {
+      "avg": 4.241071428571429,
+      "count": 112,
+      "distribution": {
+        "5": 77,
+        "2": 4,
+        "3": 9,
+        "1": 11,
+        "4": 11
+      }
+    }
+  }
+}

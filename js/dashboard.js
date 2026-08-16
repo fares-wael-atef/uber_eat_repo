@@ -128,21 +128,30 @@
   function updateDashboard() {
     try {
       const branchSelect = document.getElementById('filterBranch');
-      const dateSelect = document.getElementById('filterDate');
-
+      const dateSelect   = document.getElementById('filterDate');
       const bVal = branchSelect ? branchSelect.value : 'all';
-      const dVal = dateSelect ? dateSelect.value : 'all';
+      const dVal = dateSelect   ? dateSelect.value   : 'all';
       D.setFilters(bVal, 'all', dVal);
 
-      try { initKPIs(); } catch(e) { console.warn("initKPIs warn:", e); }
-      try { updateDynamicMenuHTML(); } catch(e) { console.warn("updateDynamicMenuHTML warn:", e); }
-      try { updateDynamicInsights(); } catch(e) { console.warn("updateDynamicInsights warn:", e); }
-      
+      // Re-render all text/KPI content across ALL pages
+      try { initKPIs(); }               catch(e) { console.warn("initKPIs:", e); }
+      try { updateDynamicMenuHTML(); }  catch(e) { console.warn("updateDynamicMenuHTML:", e); }
+      try { updateDynamicInsights(); }  catch(e) { console.warn("updateDynamicInsights:", e); }
+      try { updateRevenueSection(D.getFilteredTotals(), D.getBranchList()); } catch(e) { console.warn("updateRevenueSection:", e); }
+
+      // Re-draw charts for the currently visible section
       if (window.ChartManager) {
         try {
           window.ChartManager.disposeAll();
           initChartsForSection(currentSection);
-        } catch(e) { console.warn("initChartsForSection warn:", e); }
+        } catch(e) { console.warn("initChartsForSection:", e); }
+      }
+
+      // Flash the filter bar to confirm update
+      const filterBar = document.querySelector('.filter-bar');
+      if (filterBar) {
+        filterBar.style.outline = '2px solid #10B981';
+        setTimeout(() => { filterBar.style.outline = ''; }, 800);
       }
     } catch(err) {
       console.error("updateDashboard error:", err);
