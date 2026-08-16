@@ -579,33 +579,65 @@ body:has(#chatbotPanel.open) #chatbotFab,
         </div>
       </div>
 
-      <!-- Financial Insight Banner -->
-      <div class="dynamic-insight-banner" id="insightBannerRevenue" style="margin-bottom:24px; padding:16px 20px; background:var(--surface-2); border-left:4px solid var(--emerald-600); border-radius:12px;">
-        <strong style="font-size:0.94rem; color:var(--text-primary);">Financial Master Summary (June 2025 – June 2026):</strong><br>
-        Across our 13-month dataset scope, Ali Baba's Shawarma generated <strong>CAD $687,244.17 in Gross Item Sales</strong> across <strong>21,562 orders</strong>. After marketplace commission fees of <strong>CAD -$140,470.57</strong> (20.4% commission rate), total net payout revenue delivered to Ali Baba was <strong>CAD $351,844.00</strong> (51.2% net retention margin). Top payout store is <strong>Danforth (CAD $130,751.26)</strong>.
+            <!-- Financial Insight Banner (Enhanced UI/UX) -->
+      <div class="dynamic-insight-banner" id="insightBannerRevenue" style="margin-bottom:24px; padding:18px 24px; background:linear-gradient(135deg, rgba(16,185,129,0.05), rgba(37,99,235,0.04)); border:1px solid rgba(16,185,129,0.2); border-left:5px solid #10B981; border-radius:14px;">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+          <span style="font-size:1.1rem;">📊</span>
+          <strong style="font-size:0.96rem; font-weight:800; color:var(--text-primary);">Financial Analysis & Marketplace Fee Insights (June 2025 – June 2026):</strong>
+        </div>
+        <p style="font-size:0.86rem; line-height:1.5; color:var(--text-secondary); margin:0;">
+          Gross item sales reached <strong>CAD $687,244.17</strong> across <strong>21,562 orders</strong> (All 9 Toronto Branches). After marketplace commission fees of <strong>CAD -$140,470.57</strong> (20.4% fee rate), net payout dispatched to Ali Baba's chain was <strong>CAD $351,844.00</strong> (51.2% net retention margin). Top revenue contributor is <strong>Danforth (CAD $130,751.26)</strong>.
+        </p>
       </div>
 
-      <!-- Financial Scorecard Cards -->
-      <div class="kpi-grid" style="grid-template-columns: repeat(4, 1fr); gap:16px; margin-bottom:24px;">
-        <div class="kpi-card">
-          <div class="kpi-label">TOTAL GROSS SALES</div>
-          <div class="kpi-value" style="color:var(--blue-600);">CAD $687,244</div>
-          <div class="kpi-sub">Before fees & taxes</div>
+      <!-- Financial Scorecard Cards (Enhanced High-End UI/UX) -->
+      <div class="kpi-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:18px; margin-bottom:28px;">
+        <!-- Card 1: Gross Sales -->
+        <div class="kpi-card" style="padding:22px 24px; border-radius:16px; background:var(--surface); border:1px solid rgba(37,99,235,0.15); border-top:4px solid #2563EB; box-shadow:0 4px 14px rgba(37,99,235,0.06); display:flex; flex-direction:column; justify-content:space-between;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <span style="font-size:0.75rem; font-weight:800; color:var(--text-muted); letter-spacing:0.05em; text-transform:uppercase;">TOTAL GROSS SALES</span>
+            <span style="background:rgba(37,99,235,0.1); color:#2563EB; border-radius:8px; padding:4px 8px; font-size:0.85rem; font-weight:700;">💳 Gross</span>
+          </div>
+          <div style="font-size:1.75rem; font-weight:800; color:#2563EB; line-height:1.2; margin-bottom:6px;">CAD $687,244</div>
+          <div style="font-size:0.8rem; color:var(--text-muted); display:flex; align-items:center; gap:6px;">
+            <span style="color:#2563EB; font-weight:700;">●</span> Before fees & taxes
+          </div>
         </div>
-        <div class="kpi-card">
-          <div class="kpi-label">MARKETPLACE FEES</div>
-          <div class="kpi-value" style="color:#EF4444;">CAD -$140,471</div>
-          <div class="kpi-sub">20.4% commission rate</div>
+
+        <!-- Card 2: Marketplace Fees -->
+        <div class="kpi-card" style="padding:22px 24px; border-radius:16px; background:var(--surface); border:1px solid rgba(239,68,68,0.15); border-top:4px solid #EF4444; box-shadow:0 4px 14px rgba(239,68,68,0.06); display:flex; flex-direction:column; justify-content:space-between;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <span style="font-size:0.75rem; font-weight:800; color:var(--text-muted); letter-spacing:0.05em; text-transform:uppercase;">MARKETPLACE FEES</span>
+            <span style="background:rgba(239,68,68,0.1); color:#EF4444; border-radius:8px; padding:4px 8px; font-size:0.85rem; font-weight:700;">💸 20.4% Fee</span>
+          </div>
+          <div style="font-size:1.75rem; font-weight:800; color:#EF4444; line-height:1.2; margin-bottom:6px;">CAD -$140,471</div>
+          <div style="font-size:0.8rem; color:var(--text-muted); display:flex; align-items:center; gap:6px;">
+            <span style="color:#EF4444; font-weight:700;">●</span> Uber Eats commission rate
+          </div>
         </div>
-        <div class="kpi-card">
-          <div class="kpi-label">TOTAL NET PAYOUT</div>
-          <div class="kpi-value" style="color:var(--emerald-600);">CAD $351,844</div>
-          <div class="kpi-sub">51.2% net payout margin</div>
+
+        <!-- Card 3: Net Payout -->
+        <div class="kpi-card" style="padding:22px 24px; border-radius:16px; background:var(--surface); border:1px solid rgba(16,185,129,0.2); border-top:4px solid #10B981; box-shadow:0 4px 14px rgba(16,185,129,0.08); display:flex; flex-direction:column; justify-content:space-between;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <span style="font-size:0.75rem; font-weight:800; color:var(--text-muted); letter-spacing:0.05em; text-transform:uppercase;">TOTAL NET PAYOUT</span>
+            <span style="background:rgba(16,185,129,0.12); color:#059669; border-radius:8px; padding:4px 8px; font-size:0.85rem; font-weight:700;">51.2% Margin</span>
+          </div>
+          <div style="font-size:1.75rem; font-weight:800; color:#10B981; line-height:1.2; margin-bottom:6px;">CAD $351,844</div>
+          <div style="font-size:0.8rem; color:var(--text-muted); display:flex; align-items:center; gap:6px;">
+            <span style="color:#10B981; font-weight:700;">✓</span> Net payout delivered
+          </div>
         </div>
-        <div class="kpi-card">
-          <div class="kpi-label">AVERAGE ORDER VALUE</div>
-          <div class="kpi-value">CAD $31.87</div>
-          <div class="kpi-sub">Average gross ticket</div>
+
+        <!-- Card 4: Avg Order Value -->
+        <div class="kpi-card" style="padding:22px 24px; border-radius:16px; background:var(--surface); border:1px solid rgba(99,102,241,0.15); border-top:4px solid #6366F1; box-shadow:0 4px 14px rgba(99,102,241,0.06); display:flex; flex-direction:column; justify-content:space-between;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <span style="font-size:0.75rem; font-weight:800; color:var(--text-muted); letter-spacing:0.05em; text-transform:uppercase;">AVERAGE TICKET (AOV)</span>
+            <span style="background:rgba(99,102,241,0.1); color:#4F46E5; border-radius:8px; padding:4px 8px; font-size:0.85rem; font-weight:700;">🏷️ Per Ticket</span>
+          </div>
+          <div style="font-size:1.75rem; font-weight:800; color:#4F46E5; line-height:1.2; margin-bottom:6px;">CAD $31.87</div>
+          <div style="font-size:0.8rem; color:var(--text-muted); display:flex; align-items:center; gap:6px;">
+            <span style="color:#4F46E5; font-weight:700;">●</span> Average gross spend
+          </div>
         </div>
       </div>
 
@@ -1252,10 +1284,10 @@ body:has(#chatbotPanel.open) #chatbotFab,
 
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-<script src="js/data.js?v=106.0"></script>
-<script src="js/charts.js?v=106.0"></script>
-<script src="js/calendar.js?v=106.0"></script>
-<script src="js/chatbot.js?v=106.0"></script>
-<script src="js/dashboard.js?v=106.0"></script>
+<script src="js/data.js?v=107.0"></script>
+<script src="js/charts.js?v=107.0"></script>
+<script src="js/calendar.js?v=107.0"></script>
+<script src="js/chatbot.js?v=107.0"></script>
+<script src="js/dashboard.js?v=107.0"></script>
 </body>
 </html>
