@@ -1,4 +1,11 @@
-/**
+#!/usr/bin/env python3
+"""
+clean_data_js.py — Restores pristine syntax for js/data.js with all 13-month data properties.
+"""
+
+def clean_data():
+    target = "/Users/mac/Downloads/AliBaba_Dashboard/js/data.js"
+    content = """/**
  * data.js v17 — Central Data Engine for Ali Baba's Shawarma
  * Full 13-Month Dataset Scope: June 2025 – June 2026 (21,562 Orders | CAD $687,244.17 Gross Sales | CAD $351,844.00 Net Payout)
  */
@@ -214,3 +221,10 @@ window.DashboardData = (function () {
     getMultiMonthTrends, getChannelBreakdown, getActivePeriodLabel
   };
 })();
+"""
+    with open(target, "w") as f:
+        f.write(content)
+    print("[SUCCESS] Cleaned js/data.js")
+
+if __name__ == "__main__":
+    clean_data()
