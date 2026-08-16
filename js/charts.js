@@ -119,8 +119,8 @@ window.ChartManager = (function () {
     chart.appear(1000, 100);
   }
 
-  function drawRevenueBranch() {
-    const root = createRoot("revenueBranchChart");
+  function drawRevenueBranch(targetId = 'revenueBranchChart') {
+    const root = createRoot(targetId);
     if (!root) return;
 
     const chart = root.container.children.push(am5xy.XYChart.new(root, {
@@ -1686,9 +1686,9 @@ window.ChartManager = (function () {
   }
 
   return {
-    initOverview() { drawOrdersTimeline(); drawRevenueBranch(); drawRatingDist(); drawChannelPie(); drawDeliveryTime(); },
+    initOverview() { drawOrdersTimeline(); drawRevenueBranch('revenueBranchChart'); drawRatingDist(); drawChannelPie(); drawDeliveryTime(); },
     initOrders() { drawHourlyOrders(); drawOrderStatus(); drawTicketSize(); drawPrepDelivery(); drawSubscription(); },
-    initRevenue() { drawDailyRevenue(); drawRevenueBranch(); },
+    initRevenue() { drawDailyRevenue(); drawRevenueBranch('revenueBranchChartRev'); },
     initDowntime() { drawDowntimeBranch(); drawDowntimeCauses(); drawAvailability(); drawPauseChart(); },
     initMenu() { drawTop10MenuChart(); drawMenuRatingOnlyChart(); },
     initRatings() { drawRatingBranch(); drawRatingTime(); drawMenuRating(); drawRatingTags(); drawFulfillmentRating(); },
