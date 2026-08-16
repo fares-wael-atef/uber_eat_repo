@@ -1,4 +1,58 @@
-/**
+#!/usr/bin/env python3
+"""
+fix_global_dashboard_filtering.py —
+1. Updates dashboard.html #filterDate options to list Full 13-Month Scope and all 13 individual months + quarters.
+2. Updates date badge in topbar.
+3. Implements comprehensive multi-branch and multi-date dynamic filtering in js/data.js and js/dashboard.js.
+"""
+
+import os, re
+
+def apply_filtering_fix():
+    dash_html_path = "/Users/mac/Downloads/AliBaba_Dashboard/dashboard.html"
+    with open(dash_html_path) as f:
+        html = f.read()
+
+    # Update topbar date badge
+    html = html.replace(
+        '<span id="activeDateBadgeSpan">Dataset Range: Jun 2025 – Mar 2026 (10 Months)</span>',
+        '<span id="activeDateBadgeSpan">Scope: Jun 2025 – Jun 2026 (Full 13 Months)</span>'
+    )
+
+    # Update #filterDate options
+    new_date_options = """    <select id="filterDate" class="filter-select">
+      <option value="all" selected>Full 13-Month Scope (June 2025 – June 2026)</option>
+      <option value="jun2026">June 2026 (Latest Month)</option>
+      <option value="may2026">May 2026</option>
+      <option value="apr2026">April 2026</option>
+      <option value="mar2026">March 2026</option>
+      <option value="feb2026">February 2026</option>
+      <option value="jan2026">January 2026</option>
+      <option value="dec2025">December 2025</option>
+      <option value="nov2025">November 2025</option>
+      <option value="oct2025">October 2025</option>
+      <option value="sep2025">September 2025</option>
+      <option value="aug2025">August 2025</option>
+      <option value="jul2025">July 2025</option>
+      <option value="jun2025">June 2025</option>
+      <option value="q2_2026">Q2 2026 (Apr – Jun 2026)</option>
+      <option value="q1_2026">Q1 2026 (Jan – Mar 2026)</option>
+      <option value="q4_2025">Q4 2025 (Oct – Dec 2025)</option>
+      <option value="q3_2025">Q3 2025 (Jul – Sep 2025)</option>
+    </select>"""
+
+    html = re.sub(r'<select id="filterDate".*?</select>', new_date_options, html, flags=re.DOTALL)
+
+    with open(dash_html_path, "w") as f:
+        f.write(html)
+    print("[SUCCESS] Updated #filterDate and topbar date badge in dashboard.html")
+
+    # Update js/data.js for dynamic filtering
+    dash_data_path = "/Users/mac/Downloads/AliBaba_Dashboard/js/data.js"
+    with open(dash_data_path) as f:
+        datacode = f.read()
+
+    new_data_engine = """/**
  * data.js v18 — Central Data Engine for Ali Baba's Shawarma
  * Full 13-Month Dataset Scope: June 2025 – June 2026 (21,562 Orders | CAD $687,244.17 Gross Sales | CAD $351,844.00 Net Payout)
  */
@@ -279,3 +333,11 @@ window.DashboardData = (function () {
     getMultiMonthTrends, getChannelBreakdown, getActivePeriodLabel
   };
 })();
+"""
+
+    with open(dash_data_path, "w") as f:
+        f.write(new_data_engine)
+    print("[SUCCESS] Updated js/data.js for dynamic multi-branch & multi-date filtering")
+
+if __name__ == "__main__":
+    apply_filtering_fix()

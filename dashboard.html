@@ -262,7 +262,7 @@ body:has(#chatbotPanel.open) #chatbotFab,
     <div class="topbar-right">
       <div class="date-badge">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
-        <span id="activeDateBadgeSpan">Dataset Range: Jun 2025 – Mar 2026 (10 Months)</span>
+        <span id="activeDateBadgeSpan">Scope: Jun 2025 – Jun 2026 (Full 13 Months)</span>
       </div>
 
       <!-- EMAIL NOTIFICATION DISPATCH BUTTON -->
@@ -289,9 +289,12 @@ body:has(#chatbotPanel.open) #chatbotFab,
     <span class="filter-label">Filter Dataset:</span>
     
     <!-- DEFAULT IS ALL DURATION (10 MONTHS) -->
-    <select id="filterDate" class="filter-select">
-      <option value="all" selected>Full Dataset Duration (10 Months: Jun 2025 – Mar 2026)</option>
-      <option value="mar2026">March 2026 (Latest Month)</option>
+        <select id="filterDate" class="filter-select">
+      <option value="all" selected>Full 13-Month Scope (June 2025 – June 2026)</option>
+      <option value="jun2026">June 2026 (Latest Month)</option>
+      <option value="may2026">May 2026</option>
+      <option value="apr2026">April 2026</option>
+      <option value="mar2026">March 2026</option>
       <option value="feb2026">February 2026</option>
       <option value="jan2026">January 2026</option>
       <option value="dec2025">December 2025</option>
@@ -301,6 +304,7 @@ body:has(#chatbotPanel.open) #chatbotFab,
       <option value="aug2025">August 2025</option>
       <option value="jul2025">July 2025</option>
       <option value="jun2025">June 2025</option>
+      <option value="q2_2026">Q2 2026 (Apr – Jun 2026)</option>
       <option value="q1_2026">Q1 2026 (Jan – Mar 2026)</option>
       <option value="q4_2025">Q4 2025 (Oct – Dec 2025)</option>
       <option value="q3_2025">Q3 2025 (Jul – Sep 2025)</option>
@@ -1284,10 +1288,10 @@ body:has(#chatbotPanel.open) #chatbotFab,
 
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-<script src="js/data.js?v=107.0"></script>
-<script src="js/charts.js?v=107.0"></script>
-<script src="js/calendar.js?v=107.0"></script>
-<script src="js/chatbot.js?v=107.0"></script>
-<script src="js/dashboard.js?v=107.0"></script>
+<script src="js/data.js?v=116.0"></script>
+<script src="js/charts.js?v=116.0"></script>
+<script src="js/calendar.js?v=116.0"></script>
+<script src="js/chatbot.js?v=116.0"></script>
+<script src="js/dashboard.js?v=116.0"></script>
 </body>
 </html>
