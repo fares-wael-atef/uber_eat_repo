@@ -880,64 +880,137 @@ body:has(#chatbotPanel.open) #chatbotFab,
     </section>
 
     <!-- ===== 7. BRANCHES SECTION ===== -->
+    <!-- ===== 8. BRANCH SCORECARD & TORONTO MAP SECTION ===== -->
     <section class="section" id="section-branches">
-      <div class="section-header">
-        <h2>Branch Performance & Real Interactive Map</h2>
-        <p>Greater Toronto Area, Ontario, Canada &bull; Interactive pan, zoom & branch search map</p>
-      </div>
-
-      <div class="charts-row">
-        <div class="chart-card fullwidth">
-          <div class="chart-card-header" style="flex-wrap:wrap; gap:12px;">
-            <div>
-              <h3>Toronto Branches Real Geographic Map</h3>
-              <p>Zoom in/out, pan, and search branches across Toronto, ON, Canada</p>
-            </div>
-            
-            <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
-              <!-- Location Search & Jump Dropdown -->
-              <div style="display:flex; align-items:center; gap:6px;">
-                <label for="mapSearchSelect" style="font-size:0.8rem; font-weight:600; color:var(--text-secondary);">Location Search:</label>
-                <select id="mapSearchSelect" class="filter-select" style="padding:6px 10px; font-size:0.8rem;">
-                  <option value="all">All Locations (Toronto, Canada)</option>
-                  <option value="Danforth">Danforth</option>
-                  <option value="Dundas & University">Dundas & University</option>
-                  <option value="Bloor & Lansdowne">Bloor & Lansdowne</option>
-                  <option value="Queen St E">Queen St E</option>
-                  <option value="Dundas & Bloor">Dundas & Bloor</option>
-                  <option value="Lawrence & Weston">Lawrence & Weston</option>
-                  <option value="Kipling Ave">Kipling Ave</option>
-                  <option value="Bloor & Islington">Bloor & Islington</option>
-                  <option value="Steeles">Steeles</option>
-                </select>
-              </div>
-
-              <!-- Map Zoom Controls -->
-              <div style="display:flex; align-items:center; gap:4px; background:var(--surface-2); padding:3px; border-radius:8px; border:1px solid var(--border);">
-                <button id="mapZoomInBtn" class="map-ctrl-btn" title="Zoom In">+</button>
-                <button id="mapZoomOutBtn" class="map-ctrl-btn" title="Zoom Out">&minus;</button>
-                <button id="mapResetBtn" class="map-ctrl-btn" title="Reset View" style="font-size:0.75rem; padding:0 8px;">Reset</button>
-              </div>
-            </div>
-          </div>
-
-          <div id="branchMapChart" class="chart-container tall" style="height: 440px; min-height: 440px; position:relative; overflow:hidden;"></div>
+      <div class="section-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+        <div>
+          <h2>Toronto Store Branch Network & Performance Map</h2>
+          <p>Real-time operational scorecard, financial payouts, and geographic distribution across all 9 Toronto locations</p>
+        </div>
+        <div class="date-badge">
+          <span>Scope: 13 Months (June 2025 – June 2026)</span>
         </div>
       </div>
 
-      <div class="charts-row">
-        <div class="chart-card wide">
-          <div class="chart-card-header">
-            <div>
-              <h3>Comparative Metrics</h3>
-              <p>Orders Volume vs Revenue (CAD ÷20)</p>
+      <!-- Toronto Branch Grid Cards (High-End UI/UX Upgrade) -->
+      <div style="margin-bottom:28px;">
+        <h3 style="font-size:1.05rem; font-weight:800; color:var(--text-primary); margin-bottom:16px;">All 9 Toronto Store Locations (Ranked by Payout)</h3>
+        <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap:18px;">
+          
+          <!-- Branch 1: Danforth -->
+          <div class="kpi-card" style="padding:20px; border-top:4px solid #10B981; position:relative;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <span style="background:var(--emerald-100, #D1FAE5); color:#065F46; padding:4px 10px; border-radius:20px; font-size:0.75rem; font-weight:800;">RANK #1 TOP PERFORMER</span>
+              <span style="color:#F59E0B; font-weight:800; font-size:0.9rem;">4.86 ★</span>
+            </div>
+            <h4 style="font-size:1.1rem; font-weight:800; color:var(--text-primary); margin:0 0 6px 0;">Danforth Store</h4>
+            <p style="font-size:0.8rem; color:var(--text-muted); margin:0 0 14px 0;">Greek Town / Danforth Ave, Toronto, ON</p>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; background:var(--surface-2); padding:12px; border-radius:8px; font-size:0.84rem;">
+              <div><span style="color:var(--text-muted); font-size:0.75rem;">Net Payout:</span><br><strong style="color:var(--emerald-600); font-weight:800;">CAD $130,751</strong></div>
+              <div><span style="color:var(--text-muted); font-size:0.75rem;">Total Orders:</span><br><strong style="color:var(--blue-600); font-weight:800;">5,161 orders</strong></div>
+              <div><span style="color:var(--text-muted); font-size:0.75rem;">Gross Ticket:</span><br><strong>CAD $32.43</strong></div>
+              <div><span style="color:var(--text-muted); font-size:0.75rem;">Dispatch Speed:</span><br><strong>18.5 mins</strong></div>
             </div>
           </div>
-          <div id="branchCompareChart" class="chart-container"></div>
+
+          <!-- Branch 2: Dundas & University -->
+          <div class="kpi-card" style="padding:20px; border-top:4px solid #2563EB; position:relative;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <span style="background:#DBEAFE; color:#1E40AF; padding:4px 10px; border-radius:20px; font-size:0.75rem; font-weight:800;">RANK #2 HIGH VOLUME</span>
+              <span style="color:#F59E0B; font-weight:800; font-size:0.9rem;">3.86 ★</span>
+            </div>
+            <h4 style="font-size:1.1rem; font-weight:800; color:var(--text-primary); margin:0 0 6px 0;">Dundas & University</h4>
+            <p style="font-size:0.8rem; color:var(--text-muted); margin:0 0 14px 0;">Downtown Core / Hospital Row, Toronto, ON</p>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; background:var(--surface-2); padding:12px; border-radius:8px; font-size:0.84rem;">
+              <div><span style="color:var(--text-muted); font-size:0.75rem;">Net Payout:</span><br><strong style="color:var(--emerald-600); font-weight:800;">CAD $66,278</strong></div>
+              <div><span style="color:var(--text-muted); font-size:0.75rem;">Total Orders:</span><br><strong style="color:var(--blue-600); font-weight:800;">3,065 orders</strong></div>
+              <div><span style="color:var(--text-muted); font-size:0.75rem;">Gross Ticket:</span><br><strong>CAD $31.94</strong></div>
+              <div><span style="color:var(--text-muted); font-size:0.75rem;">Dispatch Speed:</span><br><strong>22.4 mins</strong></div>
+            </div>
+          </div>
+
+          <!-- Branch 3: Queen St E -->
+          <div class="kpi-card" style="padding:20px; border-top:4px solid #8B5CF6; position:relative;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <span style="background:#EDE9FE; color:#5B21B6; padding:4px 10px; border-radius:20px; font-size:0.75rem; font-weight:800;">RANK #3 HIGH RATING</span>
+              <span style="color:#F59E0B; font-weight:800; font-size:0.9rem;">4.62 ★</span>
+            </div>
+            <h4 style="font-size:1.1rem; font-weight:800; color:var(--text-primary); margin:0 0 6px 0;">Queen St E</h4>
+            <p style="font-size:0.8rem; color:var(--text-muted); margin:0 0 14px 0;">Leslieville / Queen East, Toronto, ON</p>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; background:var(--surface-2); padding:12px; border-radius:8px; font-size:0.84rem;">
+              <div><span style="color:var(--text-muted); font-size:0.75rem;">Net Payout:</span><br><strong style="color:var(--emerald-600); font-weight:800;">CAD $39,791</strong></div>
+              <div><span style="color:var(--text-muted); font-size:0.75rem;">Total Orders:</span><br><strong style="color:var(--blue-600); font-weight:800;">1,808 orders</strong></div>
+              <div><span style="color:var(--text-muted); font-size:0.75rem;">Gross Ticket:</span><br><strong>CAD $31.95</strong></div>
+              <div><span style="color:var(--text-muted); font-size:0.75rem;">Dispatch Speed:</span><br><strong>21.2 mins</strong></div>
+            </div>
+          </div>
+
+          <!-- Branch 4: Bloor & Lansdowne -->
+          <div class="kpi-card" style="padding:20px; border-top:4px solid #3B82F6; position:relative;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <span style="background:#DBEAFE; color:#1E40AF; padding:4px 10px; border-radius:20px; font-size:0.75rem; font-weight:800;">WEST END HUB</span>
+              <span style="color:#F59E0B; font-weight:800; font-size:0.9rem;">4.45 ★</span>
+            </div>
+            <h4 style="font-size:1.1rem; font-weight:800; color:var(--text-primary); margin:0 0 6px 0;">Bloor & Lansdowne</h4>
+            <p style="font-size:0.8rem; color:var(--text-muted); margin:0 0 14px 0;">Bloordale Village, Toronto, ON</p>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; background:var(--surface-2); padding:12px; border-radius:8px; font-size:0.84rem;">
+              <div><span style="color:var(--text-muted); font-size:0.75rem;">Net Payout:</span><br><strong style="color:var(--emerald-600); font-weight:800;">CAD $15,852</strong></div>
+              <div><span style="color:var(--text-muted); font-size:0.75rem;">Total Orders:</span><br><strong style="color:var(--blue-600); font-weight:800;">1,653 orders</strong></div>
+              <div><span style="color:var(--text-muted); font-size:0.75rem;">Gross Ticket:</span><br><strong>CAD $31.91</strong></div>
+              <div><span style="color:var(--text-muted); font-size:0.75rem;">Dispatch Speed:</span><br><strong>20.8 mins</strong></div>
+            </div>
+          </div>
+
+          <!-- Branch 5: Lawrence & Weston -->
+          <div class="kpi-card" style="padding:20px; border-top:4px solid #F59E0B; position:relative;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <span style="background:#FEF3C7; color:#92400E; padding:4px 10px; border-radius:20px; font-size:0.75rem; font-weight:800;">NORTH WEST HUB</span>
+              <span style="color:#F59E0B; font-weight:800; font-size:0.9rem;">4.38 ★</span>
+            </div>
+            <h4 style="font-size:1.1rem; font-weight:800; color:var(--text-primary); margin:0 0 6px 0;">Lawrence & Weston</h4>
+            <p style="font-size:0.8rem; color:var(--text-muted); margin:0 0 14px 0;">Weston Village, York, ON</p>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; background:var(--surface-2); padding:12px; border-radius:8px; font-size:0.84rem;">
+              <div><span style="color:var(--text-muted); font-size:0.75rem;">Net Payout:</span><br><strong style="color:var(--emerald-600); font-weight:800;">CAD $9,948</strong></div>
+              <div><span style="color:var(--text-muted); font-size:0.75rem;">Total Orders:</span><br><strong style="color:var(--blue-600); font-weight:800;">1,133 orders</strong></div>
+              <div><span style="color:var(--text-muted); font-size:0.75rem;">Gross Ticket:</span><br><strong>CAD $31.94</strong></div>
+              <div><span style="color:var(--text-muted); font-size:0.75rem;">Dispatch Speed:</span><br><strong>26.4 mins</strong></div>
+            </div>
+          </div>
+
+          <!-- Branch 6: Kipling Ave -->
+          <div class="kpi-card" style="padding:20px; border-top:4px solid #10B981; position:relative;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <span style="background:#D1FAE5; color:#065F46; padding:4px 10px; border-radius:20px; font-size:0.75rem; font-weight:800;">PERFECT 5.0 ★ STORE</span>
+              <span style="color:#F59E0B; font-weight:800; font-size:0.9rem;">5.00 ★</span>
+            </div>
+            <h4 style="font-size:1.1rem; font-weight:800; color:var(--text-primary); margin:0 0 6px 0;">Kipling Ave</h4>
+            <p style="font-size:0.8rem; color:var(--text-muted); margin:0 0 14px 0;">Etobicoke Centre, ON</p>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; background:var(--surface-2); padding:12px; border-radius:8px; font-size:0.84rem;">
+              <div><span style="color:var(--text-muted); font-size:0.75rem;">Net Payout:</span><br><strong style="color:var(--emerald-600); font-weight:800;">CAD $3,850</strong></div>
+              <div><span style="color:var(--text-muted); font-size:0.75rem;">Total Orders:</span><br><strong style="color:var(--blue-600); font-weight:800;">357 orders</strong></div>
+              <div><span style="color:var(--text-muted); font-size:0.75rem;">Gross Ticket:</span><br><strong>CAD $31.92</strong></div>
+              <div><span style="color:var(--text-muted); font-size:0.75rem;">Dispatch Speed:</span><br><strong>25.6 mins</strong></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Comparative Charts -->
+      <div class="dashboard-grid" style="margin-bottom:24px;">
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3>Comparative Metrics</h3>
+            <p>Order volume vs gross revenue by branch</p>
+          </div>
+          <div id="branchCompareChart" style="height:320px;"></div>
         </div>
         <div class="chart-card">
-          <div class="chart-card-header"><div><h3>Courier Wait Times</h3><p>Avoidable waiting minutes</p></div></div>
-          <div id="courierWaitChart" class="chart-container"></div>
+          <div class="chart-header">
+            <h3>Courier Wait Times</h3>
+            <p>Average dispatch wait minutes per store</p>
+          </div>
+          <div id="courierWaitChart" style="height:320px;"></div>
         </div>
       </div>
     </section>
@@ -1179,10 +1252,10 @@ body:has(#chatbotPanel.open) #chatbotFab,
 
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-<script src="js/data.js?v=103.0"></script>
-<script src="js/charts.js?v=103.0"></script>
-<script src="js/calendar.js?v=103.0"></script>
-<script src="js/chatbot.js?v=103.0"></script>
-<script src="js/dashboard.js?v=103.0"></script>
+<script src="js/data.js?v=104.0"></script>
+<script src="js/charts.js?v=104.0"></script>
+<script src="js/calendar.js?v=104.0"></script>
+<script src="js/chatbot.js?v=104.0"></script>
+<script src="js/dashboard.js?v=104.0"></script>
 </body>
 </html>

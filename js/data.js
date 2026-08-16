@@ -74,13 +74,13 @@ window.DashboardData = (function () {
   ];
 
   const menuItemRatings = [
-    { name: "Falafel Wrap", item: "Falafel Wrap", rating: 5.0, count: 2240, orders: 2240 },
-    { name: "Baklava Dessert", item: "Baklava Dessert", rating: 4.9, count: 1430, orders: 1430 },
-    { name: "Chicken Shawarma Wrap", item: "Chicken Shawarma Wrap", rating: 4.8, count: 5840, orders: 5840 },
-    { name: "Hummus & Pita", item: "Hummus & Pita", rating: 4.75, count: 1190, orders: 1190 },
-    { name: "Beef Shawarma Plate", item: "Beef Shawarma Plate", rating: 4.6, count: 4140, orders: 4140 },
-    { name: "Mixed Shawarma Platter", item: "Mixed Shawarma Platter", rating: 4.5, count: 3210, orders: 3210 },
-    { name: "Garlic Sauce Side", item: "Garlic Sauce Side", rating: 3.8, count: 1820, orders: 1820 }
+    { name: "Falafel Wrap", item: "Falafel Wrap", rating: 5.0, avgRating: 5.0, count: 2240, orders: 2240 },
+    { name: "Baklava Dessert", item: "Baklava Dessert", rating: 4.9, avgRating: 4.9, count: 1430, orders: 1430 },
+    { name: "Chicken Shawarma Wrap", item: "Chicken Shawarma Wrap", rating: 4.8, avgRating: 4.8, count: 5840, orders: 5840 },
+    { name: "Hummus & Pita", item: "Hummus & Pita", rating: 4.75, avgRating: 4.75, count: 1190, orders: 1190 },
+    { name: "Beef Shawarma Plate", item: "Beef Shawarma Plate", rating: 4.6, avgRating: 4.6, count: 4140, orders: 4140 },
+    { name: "Mixed Shawarma Platter", item: "Mixed Shawarma Platter", rating: 4.5, avgRating: 4.5, count: 3210, orders: 3210 },
+    { name: "Garlic Sauce Side", item: "Garlic Sauce Side", rating: 3.8, avgRating: 3.8, count: 1820, orders: 1820 }
   ];
 
   const menuItemsByRating = menuItemRatings;
@@ -95,9 +95,9 @@ window.DashboardData = (function () {
   ];
 
   const fulfillmentRatings = [
-    { method: "Customer Pickup", channel: "Customer Pickup", rating: 4.92, value: 4.92, count: 4.92 },
-    { method: "Uber One Members", channel: "Uber One Members", rating: 4.85, value: 4.85, count: 4.85 },
-    { method: "Uber Eats Delivery", channel: "Uber Eats Delivery", rating: 4.41, value: 4.41, count: 4.41 }
+    { method: "Customer Pickup", channel: "Customer Pickup", type: "Customer Pickup", rating: 4.92, avgRating: 4.92, value: 4.92, count: 4.92 },
+    { method: "Uber One Members", channel: "Uber One Members", type: "Uber One Members", rating: 4.85, avgRating: 4.85, value: 4.85, count: 4.85 },
+    { method: "Uber Eats Delivery", channel: "Uber Eats Delivery", type: "Uber Eats Delivery", rating: 4.41, avgRating: 4.41, value: 4.41, count: 4.41 }
   ];
 
   const issueTypes = [
@@ -194,6 +194,10 @@ window.DashboardData = (function () {
     return monthlyTrends.map(m => ({ date: m.month, score: 98.4, pct: 98.4, value: 98.4 }));
   }
 
+    function getDailyTimeline() {
+    return monthlyTrends.map(m => ({ date: m.month, orders: m.orders, payout: m.payout }));
+  }
+
   function getDailyRatings() {
     return monthlyTrends.map(m => ({ date: m.month, rating: 4.48 }));
   }
@@ -207,7 +211,7 @@ window.DashboardData = (function () {
 
   return {
     getFilters, setFilters, getFilteredTotals, getBranchList, getFilteredBranchList,
-    getDailyOrderData, getDailyRevenueData, getDailyAvailability, getDailyRatings,
+    getDailyOrderData, getDailyRevenueData, getDailyAvailability, getDailyRatings, getDailyTimeline,
     rawBranchData, ratingDistribution, orderChannels, hourlyData, subscriptionData,
     downtimeCauses, menuItemRatings, menuItemsByRating, ratingTags, fulfillmentRatings,
     issueTypes, topInaccurateItems, topMenuItems, top10MenuItems: topMenuItems,
