@@ -1688,7 +1688,7 @@ window.ChartManager = (function () {
   return {
     initOverview() { drawOrdersTimeline(); drawRevenueBranch(); drawRatingDist(); drawChannelPie(); drawDeliveryTime(); },
     initOrders() { drawHourlyOrders(); drawOrderStatus(); drawTicketSize(); drawPrepDelivery(); drawSubscription(); },
-    initRevenue() { drawDailyRevenue(); drawRevenueBreakdown(); drawRevenueWaterfall(); drawFeesChart(); },
+    initRevenue() { drawDailyRevenue(); drawRevenueBranch(); },
     initDowntime() { drawDowntimeBranch(); drawDowntimeCauses(); drawAvailability(); drawPauseChart(); },
     initMenu() { drawTop10MenuChart(); drawMenuRatingOnlyChart(); },
     initRatings() { drawRatingBranch(); drawRatingTime(); drawMenuRating(); drawRatingTags(); drawFulfillmentRating(); },
