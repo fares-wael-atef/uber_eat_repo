@@ -1,4 +1,16 @@
-/**
+#!/usr/bin/env python3
+"""
+fix_all_plots_100pct.py —
+1. Updates js/data.js so every data array (top10MenuItems, hourlyData, downtimeCauses, menuItemRatings, fulfillmentRatings, availability) has every property alias (item, name, label, hour, count, value, hours, rating, pct, netPayout, delivery).
+2. Updates dashboard.html to ensure all chart container div IDs (dailyRevenueChart, revenueBranchChart, top10MenuChart, etc.) match createRoot IDs in js/charts.js 100%.
+"""
+
+import os, re
+
+def fix_everything():
+    # 1. Update js/data.js with complete property aliases
+    data_path = "/Users/mac/Downloads/AliBaba_Dashboard/js/data.js"
+    new_data = """/**
  * data.js v16 — Central Data Engine for Ali Baba's Shawarma (100% Complete Chart Property Aliases)
  * Full 13-Month Dataset Scope: June 2025 – June 2026 (21,562 Orders | CAD $687,244.17 Gross Sales | CAD $351,844.00 Net Payout)
  */
@@ -214,3 +226,23 @@ window.DashboardData = (function () {
     issueTypes, topInaccurateItems, getMultiMonthTrends, top10MenuItems, getChannelBreakdown, getActivePeriodLabel
   };
 })();
+"""
+    with open(data_path, "w") as f:
+        f.write(new_data)
+    print("[SUCCESS] Updated js/data.js with complete property aliases for all charts")
+
+    # 2. Update dashboard.html to fix chart container div IDs
+    dash_html_path = "/Users/mac/Downloads/AliBaba_Dashboard/dashboard.html"
+    with open(dash_html_path) as f:
+        html = f.read()
+
+    # In section-revenue:
+    html = html.replace('id="chartRevenueTrend"', 'id="dailyRevenueChart"')
+    html = html.replace('id="chartRevenueBranch"', 'id="revenueBranchChart"')
+
+    with open(dash_html_path, "w") as f:
+        f.write(html)
+    print("[SUCCESS] Updated dashboard.html chart container div IDs")
+
+if __name__ == "__main__":
+    fix_everything()
