@@ -1,4 +1,15 @@
-/**
+#!/usr/bin/env python3
+"""
+restore_all_data_getters_13m.py —
+Restores all legacy getters and rawBranchData mappings required by amCharts in js/charts.js
+13-Month Scope: June 2025 to June 2026 (21,562 Orders | CAD $687,244.17 Gross Sales | CAD $351,844.00 Net Payout)
+"""
+
+import os
+
+def restore_getters():
+    data_path = "/Users/mac/Downloads/AliBaba_Dashboard/js/data.js"
+    new_data_code = """/**
  * data.js v14 — Central Data Engine for Ali Baba's Shawarma
  * Full 13-Month Dataset Scope: June 2025 – June 2026 (21,562 Orders | CAD $687,244.17 Gross Sales | CAD $351,844.00 Net Payout)
  */
@@ -139,3 +150,10 @@ window.DashboardData = (function () {
     rawBranchData, getMultiMonthTrends, top10MenuItems, getChannelBreakdown, getActivePeriodLabel
   };
 })();
+"""
+    with open(data_path, "w") as f:
+        f.write(new_data_code)
+    print("[SUCCESS] Restored all legacy helper getters in js/data.js")
+
+if __name__ == "__main__":
+    restore_getters()
