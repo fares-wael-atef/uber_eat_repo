@@ -1132,7 +1132,8 @@ window.ChartManager = (function () {
     xAxis.get("renderer").labels.template.setAll({ fill: mutedColor(), fontSize: 10 });
     xAxis.get("renderer").grid.template.setAll({ stroke: gridColor(), strokeWidth: 1, strokeDasharray: [4, 3] });
 
-    const data = D.top10MenuItems;
+    const rawData = typeof D.top10MenuItems === 'function' ? D.top10MenuItems() : D.top10MenuItems;
+    const data = Array.isArray(rawData) ? rawData : (D.topMenuItems || []);
 
     const series = chart.series.push(am5xy.ColumnSeries.new(root, {
       xAxis, yAxis, valueXField: "orders", categoryYField: "item",
@@ -1178,7 +1179,8 @@ window.ChartManager = (function () {
     }));
     xAxis.get("renderer").labels.template.setAll({ fill: mutedColor(), fontSize: 10 });
 
-    const data = D.menuItemsByRating;
+    const rawData = typeof D.menuItemsByRating === 'function' ? D.menuItemsByRating() : D.menuItemsByRating;
+    const data = Array.isArray(rawData) ? rawData : [];
 
     const series = chart.series.push(am5xy.ColumnSeries.new(root, {
       xAxis, yAxis, valueXField: "rating", categoryYField: "item",
@@ -1612,7 +1614,8 @@ window.ChartManager = (function () {
     xAxis.get("renderer").labels.template.setAll({ fill: mutedColor(), fontSize: 10 });
     xAxis.get("renderer").grid.template.setAll({ stroke: gridColor(), strokeWidth: 1, strokeDasharray: [4, 3] });
 
-    const data = D.top10MenuItems;
+    const rawData = typeof D.top10MenuItems === 'function' ? D.top10MenuItems() : D.top10MenuItems;
+    const data = Array.isArray(rawData) ? rawData : (D.topMenuItems || []);
 
     const series = chart.series.push(am5xy.ColumnSeries.new(root, {
       xAxis, yAxis, valueXField: "orders", categoryYField: "item",
@@ -1658,7 +1661,8 @@ window.ChartManager = (function () {
     }));
     xAxis.get("renderer").labels.template.setAll({ fill: mutedColor(), fontSize: 10 });
 
-    const data = D.menuItemsByRating;
+    const rawData = typeof D.menuItemsByRating === 'function' ? D.menuItemsByRating() : D.menuItemsByRating;
+    const data = Array.isArray(rawData) ? rawData : [];
 
     const series = chart.series.push(am5xy.ColumnSeries.new(root, {
       xAxis, yAxis, valueXField: "rating", categoryYField: "item",

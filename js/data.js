@@ -199,7 +199,7 @@ window.DashboardData = (function () {
   }
 
   function getMultiMonthTrends() { return monthlyTrends; }
-  function top10MenuItems() { return topMenuItems; }
+  // top10MenuItems is an array
   function getChannelBreakdown() { return channelBreakdown; }
 
   function getActivePeriodLabel() {
@@ -211,6 +211,6 @@ window.DashboardData = (function () {
     getDailyOrderData, getDailyRevenueData, getDailyAvailability, getDailyRatings,
     rawBranchData, ratingDistribution, orderChannels, hourlyData, subscriptionData,
     downtimeCauses, menuItemRatings, menuItemsByRating, ratingTags, fulfillmentRatings,
-    issueTypes, topInaccurateItems, getMultiMonthTrends, top10MenuItems, getChannelBreakdown, getActivePeriodLabel
+    issueTypes, topInaccurateItems, getMultiMonthTrends, topMenuItems, top10MenuItems: topMenuItems, getChannelBreakdown, getActivePeriodLabel
   };
 })();
